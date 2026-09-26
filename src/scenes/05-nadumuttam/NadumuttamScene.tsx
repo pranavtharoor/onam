@@ -148,7 +148,7 @@ export function NadumuttamScene(props: SceneProps) {
               </g>
             </svg>
             <canvas ref={canvas} className="fill" aria-hidden="true" />
-            <p className="nm-lead display">{copy.nadumuttam.lead}</p>
+            <p className="nm-lead display plaque">{copy.nadumuttam.lead}</p>
           </div>
           <div className="nm-wall fill">
             <div className="nm-rafters" />

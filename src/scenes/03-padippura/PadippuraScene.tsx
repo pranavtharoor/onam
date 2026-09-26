@@ -154,7 +154,7 @@ export function PadippuraScene(props: SceneProps) {
               <BananaPlant x={1230} y={1030} height={520} seed={34} />
             </g>
           </svg>
-          <p className="pp-caption">
+          <p className="pp-caption plaque">
             <Ml className="pp-caption-ml">{copy.padippura.lintel.ml}</Ml>
             <span>{copy.padippura.lintel.roman}, “{copy.padippura.lintel.en}”</span>
           </p>

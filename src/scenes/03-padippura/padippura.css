@@ -9,10 +9,9 @@
 }
 .pp-caption {
   position: absolute; left: var(--gutter); bottom: calc(var(--gutter) * 1.2);
-  display: grid; gap: 0.1em; color: var(--c-lime); opacity: 0;
-  font-size: var(--step-0); padding: 0.6rem 0.9rem 0.5rem; background: rgb(23 19 15 / 0.6); border-radius: 2px;
+  display: grid; gap: 0.1em; opacity: 0; font-size: var(--step-0);
 }
-.pp-caption-ml { font-size: var(--step-2); font-weight: 700; color: var(--c-yellow-ochre); }
+.pp-caption-ml { font-size: var(--step-2); font-weight: 700; color: var(--c-red-ochre); line-height: 1.3; }
 @media (max-width: 899.98px) {
   .pp-caption { bottom: auto; top: var(--top-safe); }
 }

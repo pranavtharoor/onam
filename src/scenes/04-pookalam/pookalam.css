@@ -18,3 +18,11 @@
 @media (prefers-reduced-motion: reduce) {
   .pk-intro { display: none; }
 }
+/* The still film on a phone sets the outro over the finished rings: give it the caption plaque. */
+@media (prefers-reduced-motion: reduce) and (max-width: 899.98px) {
+  .pk-outro {
+    background: var(--c-mundu); color: var(--c-black); border-radius: 12px;
+    padding: 0.75rem 1.1rem 0.65rem; width: auto; max-width: min(21ch, calc(100% - 2 * var(--gutter))); line-height: 1.2; text-wrap: balance;
+    box-shadow: inset 0 0 0 5px var(--c-mundu), inset 0 0 0 6.5px var(--c-kasavu), 0 10px 24px -14px rgb(23 19 15 / 0.45);
+  }
+}

@@ -123,7 +123,7 @@ export function PaddyScene(props: SceneProps) {
           ))}
         </svg>
 
-        <p className="pd-line display">{copy.paddy.line}</p>
+        <p className="pd-line display plaque">{copy.paddy.line}</p>
       </div>
     </Scene>
   )

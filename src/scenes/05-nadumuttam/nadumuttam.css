@@ -3,8 +3,8 @@
 @media (prefers-reduced-motion: reduce) { .nm-reveal { clip-path: none; } }
 .nm-upview { background: var(--c-tile); }
 .nm-lead {
-  position: absolute; left: var(--gutter); top: var(--top-safe); max-width: 16ch;
-  font-size: var(--step-2); color: var(--c-lime); text-shadow: 0 2px 16px rgb(23 19 15 / 0.5);
+  position: absolute; left: var(--gutter); top: var(--top-safe); max-width: 19ch;
+  font-size: var(--step-1); line-height: 1.25;
 }
 /* The wall under the beam: lime plaster, carved-wood beam, dark pillars, red-oxide floor. */
 .nm-wall { background: #d9cdb0; overflow: hidden; }
