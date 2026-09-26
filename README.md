@@ -20,8 +20,9 @@ Everything a guest reads is in **`src/content.ts`**: event facts, every line of
 copy, the ten day names, and the Sadhya dishes with their serving order.
 
 - **RSVP:** set `event.rsvpUrl` to the Google Form link. Until then RSVP opens the site in a new tab.
-- **Malayalam:** every Malayalam string is in an `ml` field and is marked
-  `data-verify="malayalam"` in the page. Once proofread, set `MALAYALAM_VERIFIED = true`.
+- **Malayalam:** every Malayalam string is in an `ml` field. The current strings
+  are proofread (`MALAYALAM_VERIFIED = true`); if you add or change one, set it to
+  `false` until it has been checked, which marks them `data-verify="malayalam"` in the page.
 - **Link preview:** `index.html` has the WhatsApp/iMessage preview text and an
   absolute `og:image` URL; update both if the date or URL changes.
 

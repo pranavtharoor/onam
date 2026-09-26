@@ -5,7 +5,7 @@
  * data-verify="malayalam" until a native reader has confirmed them.
  * When confirmed, set MALAYALAM_VERIFIED = true.
  */
-export const MALAYALAM_VERIFIED = false
+export const MALAYALAM_VERIFIED = true
 
 export const event = {
   title: 'Onam Sadhya',

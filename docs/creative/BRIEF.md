@@ -325,6 +325,7 @@ lens flares, no animated blur.
 | 2026-09-26 | Static texture (fronds, laterite, stalks, specks, flecks) merged into single paths; pookalam petal density 0.75 desktop / 0.4 mobile | DOM 9.1k → 2.8k nodes; mobile slow frames 37% → 10% (4× CPU, headless) |
 | 2026-09-26 | Accepted cost: Manjari Malayalam 400 + 700, 61 KB each | Fetched only when Malayalam renders (unicode-range). Subsetting risks breaking conjunct shaping before proofreading; revisit after the text is final |
 | 2026-09-26 | Sound is procedural WebAudio (water, birds, distant chenda, rain drips, hall murmur), opt-in, per-scene mix | No audio files to download or license; nothing plays without a tap |
+| 2026-09-26 | Malayalam on the site proofread and approved by the host's father; `MALAYALAM_VERIFIED = true` | Any new Malayalam string needs the same review before shipping |
 | 2026-09-26 | RSVP points to the site itself (new tab) until the Google Form exists | Host request; change `event.rsvpUrl` in `src/content.ts` |
 
 ## 12. What we need from the hosts
