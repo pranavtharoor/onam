@@ -1,8 +1,14 @@
 # Creative brief & storyboard
 
-**Status: EXPLORING — three directions proposed, awaiting the host's choice.**
-Nothing below is locked. Once a direction is chosen, this document is rewritten
-around it (§6 becomes the working storyboard; the others move to an appendix).
+**Status: DIRECTION CHOSEN (2026-09-26) — B, "Maveli Comes Home", with A's
+pookalam growth and C's leaf fold. Built; see §6 for the storyboard as implemented
+and §11 for decisions made during the build.** Directions A and C are kept below
+as the record of the exploration.
+
+Context from the hosts: the celebration is **after** Onam (Saturday, 10 October),
+so the copy leans into that: "Onam came and went… This year, we waited a little
+longer. For you." Guests come from all over India: English first, Malayalam as
+sparkle (proofread by the host's father before launch).
 
 Cultural facts referenced here are documented in
 `.claude/skills/onam-design/references/kerala-onam.md`.
@@ -311,6 +317,15 @@ lens flares, no animated blur.
 |---|---|---|
 | 2026-09-26 | Stack: React + Vite + TS, GSAP/ScrollTrigger, Lenis; Motion deferred; no WebGL yet | Simplest stack that supports scroll-as-camera; Motion added only when a micro-interaction needs it |
 | 2026-09-26 | Three directions explored; B recommended (with A's pookalam growth and C's fold) | See §3–§5 |
+| 2026-09-26 | **Host chose B + A's pookalam + C's fold** | — |
+| 2026-09-26 | Type: Young Serif (display) + Manjari (SMC; Latin text + Malayalam) | Rendered specimen vs Gloock: Young Serif's weight matches hand-painted signboards; Manjari's rounded Malayalam shapes conjuncts correctly and its Latin is warm |
+| 2026-09-26 | Seams by design: backwater ends on pure dawn = paddy's sky; the gatehouse fly-through ends on pure courtyard earth = pookalam's first frame; the row ends on the empty leaf = the finale's first frame | Transitions are invisible cuts, not fades |
+| 2026-09-26 | Diners drawn as waist-down laps (shirt, kasavu mundu over crossed knees); no hands or faces | Hands read as a face/moustache in review; faces invite caricature |
+| 2026-09-26 | Row pacing: places 96svh wide, truck at 1.25× scroll speed | Motion review: the row took ~30% of the film |
+| 2026-09-26 | Static texture (fronds, laterite, stalks, specks, flecks) merged into single paths; pookalam petal density 0.75 desktop / 0.4 mobile | DOM 9.1k → 2.8k nodes; mobile slow frames 37% → 10% (4× CPU, headless) |
+| 2026-09-26 | Accepted cost: Manjari Malayalam 400 + 700, 61 KB each | Fetched only when Malayalam renders (unicode-range). Subsetting risks breaking conjunct shaping before proofreading; revisit after the text is final |
+| 2026-09-26 | Sound is procedural WebAudio (water, birds, distant chenda, rain drips, hall murmur), opt-in, per-scene mix | No audio files to download or license; nothing plays without a tap |
+| 2026-09-26 | RSVP points to the site itself (new tab) until the Google Form exists | Host request; change `event.rsvpUrl` in `src/content.ts` |
 
 ## 12. What we need from the hosts
 

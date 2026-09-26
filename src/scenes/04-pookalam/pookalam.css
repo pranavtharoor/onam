@@ -1,0 +1,20 @@
+.s-pookalam .scene__stage { background: var(--c-earth); }
+.pk-copy { position: absolute; inset: 0; pointer-events: none; }
+.pk-intro, .pk-outro {
+  position: absolute; right: var(--gutter); top: 50%; transform: translateY(-50%);
+  width: min(19vw, 13ch); font-size: var(--step-1); color: var(--c-lime);
+}
+.pk-days { list-style: none; padding: 0; margin: 0; position: absolute; left: var(--gutter); top: 50%; transform: translateY(-50%); }
+.pk-day { position: absolute; top: 0; left: 0; display: grid; width: 22vw; transform: translateY(-50%); }
+.pk-day-n { font-size: var(--step--1); color: var(--c-dawn); }
+.pk-day-ml { font-size: var(--step-3); font-weight: 700; color: var(--c-mukkutti); line-height: 1.5; }
+.pk-day-en { font-family: var(--font-display); font-size: var(--step-1); color: var(--c-lime); }
+
+@media (max-width: 899.98px) {
+  .pk-intro, .pk-outro { top: var(--top-safe); right: auto; left: var(--gutter); transform: none; width: 15ch; font-size: var(--step-1); }
+  .pk-days { top: auto; bottom: 16svh; }
+  .pk-day { width: 80vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-intro { display: none; }
+}

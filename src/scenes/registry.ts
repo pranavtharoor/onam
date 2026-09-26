@@ -1,19 +1,22 @@
 import type { SceneDefinition } from '../core/scene/types'
-import { HarnessOpening } from './_harness/HarnessOpening'
-import { HarnessTravel } from './_harness/HarnessTravel'
-import { HarnessReveal } from './_harness/HarnessReveal'
+import { BackwaterScene } from './01-backwater/BackwaterScene'
+import { PaddyScene } from './02-paddy/PaddyScene'
+import { PadippuraScene } from './03-padippura/PadippuraScene'
+import { PookalamScene } from './04-pookalam/PookalamScene'
+import { NadumuttamScene } from './05-nadumuttam/NadumuttamScene'
+import { SadhyaRowScene } from './06-sadhya-row/SadhyaRowScene'
+import { YourLeafScene } from './07-your-leaf/YourLeafScene'
 
 /**
- * The film, in scroll order. Add / remove / reorder scenes here.
- *
- * The `_harness` scenes are ARCHITECTURE PROOFS, not design. They exercise
- * pinning, depth-layer camera moves, horizontal travel, overlap transitions,
- * canvas layers and all three motion modes, so the QA tooling has something real
- * to measure. They are replaced by the real scenes once a creative direction is
- * chosen (see docs/creative/BRIEF.md).
+ * The film, in scroll order (Direction B, "Maveli Comes Home" — docs/creative/BRIEF.md §6).
+ * Seams: each scene's last frame is designed to meet the next scene's first frame.
  */
 export const scenes: SceneDefinition[] = [
-  { id: 'harness-opening', title: 'Harness: camera push through depth layers', Component: HarnessOpening, ground: 'var(--c-ink)' },
-  { id: 'harness-travel', title: 'Harness: horizontal travel (desktop) / vertical stack (mobile)', Component: HarnessTravel, ground: 'var(--c-paper)' },
-  { id: 'harness-reveal', title: 'Harness: overlap iris reveal + canvas layer', Component: HarnessReveal, entry: { desktop: 'overlap', mobile: 'cut', reduced: 'cut' }, ground: 'var(--c-leaf)' },
+  { id: 'backwater', title: 'Backwater before dawn', Component: BackwaterScene, ground: 'var(--c-indigo-deep)' },
+  { id: 'paddy', title: 'Dawn over paddy and palms', Component: PaddyScene, ground: 'var(--c-dawn)' },
+  { id: 'padippura', title: 'The gatehouse', Component: PadippuraScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
+  { id: 'pookalam', title: 'Ten mornings of the pookalam', Component: PookalamScene, ground: 'var(--c-earth)' },
+  { id: 'nadumuttam', title: 'The courtyard open to the sky', Component: NadumuttamScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
+  { id: 'sadhya-row', title: 'The row of leaves', Component: SadhyaRowScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
+  { id: 'your-leaf', title: 'Your leaf and the invitation', Component: YourLeafScene, ground: 'var(--c-oxide)' },
 ]

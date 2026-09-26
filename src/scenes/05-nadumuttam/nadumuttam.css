@@ -1,0 +1,52 @@
+.s-nadumuttam .scene__stage { background: transparent; overflow: visible; }
+.nm-reveal { overflow: hidden; clip-path: circle(0 at 50% 50%); }
+@media (prefers-reduced-motion: reduce) { .nm-reveal { clip-path: none; } }
+.nm-upview { background: var(--c-tile); }
+.nm-lead {
+  position: absolute; left: var(--gutter); top: var(--top-safe); max-width: 16ch;
+  font-size: var(--step-2); color: var(--c-lime); text-shadow: 0 2px 16px rgb(23 19 15 / 0.5);
+}
+/* The wall under the beam: lime plaster, carved-wood beam, dark pillars, red-oxide floor. */
+.nm-wall { background: #d9cdb0; overflow: hidden; }
+.nm-rafters {
+  position: absolute; left: 0; right: 0; top: 0; height: 13svh;
+  background: repeating-linear-gradient(90deg, #2a1a10 0 22px, var(--c-wood) 22px 70px);
+  border-bottom: 6px solid #2a1a10;
+}
+.nm-beam {
+  position: absolute; left: 0; right: 0; top: 17svh; overflow: hidden;
+  padding: 2.4svh var(--gutter) 2.8svh;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 30%, rgb(0 0 0 / 0.25)),
+    repeating-linear-gradient(0deg, #3d2515 0 3px, #452a18 3px 7px);
+  border-top: 5px solid #24150c; border-bottom: 8px solid #24150c;
+  box-shadow: 0 14px 24px rgb(23 19 15 / 0.35);
+}
+.nm-sign { text-align: center; color: var(--c-yellow-ochre); font-family: var(--font-display); }
+/* Hand-painted signboard: flat ochre letters with a hard red-ochre shadow. */
+.nm-sign > * { text-shadow: 0.06em 0.06em 0 var(--c-red-ochre); text-wrap: balance; }
+.nm-sign-lead { font-size: var(--step-1); color: var(--c-lime); }
+.nm-sign-title { font-size: var(--step-4); line-height: 1; margin: 0.08em 0 0.12em; }
+.nm-sign-when { font-size: var(--step-2); }
+.nm-sign-where { font-size: var(--step-0); font-family: var(--font-text); color: var(--c-lime); margin-top: 0.4em; text-shadow: none; }
+.nm-sheen {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(100deg, transparent 35%, rgb(255 236 190 / 0.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.nm-pillar { position: absolute; top: 13svh; bottom: 14svh; width: clamp(28px, 4vw, 64px); background: linear-gradient(90deg, #24150c, #4a2e1b 45%, #24150c); }
+.nm-pillar--l { left: 8vw; } .nm-pillar--r { right: 8vw; }
+.nm-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 14svh; background: linear-gradient(180deg, #8a3122, var(--c-oxide)); }
+/* Flame sits at FLAME_AT (50%, 80%) of the viewport. */
+.nm-lamp { position: absolute; left: 50%; top: 80svh; height: 22svh; width: auto; transform: translate(-50%, -21%); overflow: visible; }
+
+@media (max-width: 899.98px) {
+  .nm-beam { top: 16svh; padding-block: 3svh; }
+  .nm-sign-title { font-size: var(--step-3); }
+  .nm-pillar--l { left: 3vw; } .nm-pillar--r { right: 3vw; }
+}
+/* Reduced motion: the still frame is the painted beam. */
+@media (prefers-reduced-motion: reduce) {
+  .nm-upview { display: none; }
+  .nm-sheen { display: none; }
+}

@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client'
 import { App } from './App'
 import { installQABridge } from './core/qa/qaBridge'
 import { getLenis } from './core/motion/SmoothScroll'
+import '@fontsource/young-serif/latin-400.css'
+import '@fontsource/manjari/latin-400.css'
+import '@fontsource/manjari/latin-700.css'
+import '@fontsource/manjari/malayalam-400.css'
+import '@fontsource/manjari/malayalam-700.css'
 import './styles/global.css'
 
 // Scroll restoration fights pinned scenes on reload; always start at the opening.

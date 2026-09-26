@@ -61,7 +61,7 @@ async function walk(dir) {
 if (!args['no-build']) execSync('npm run build', { stdio: 'inherit' })
 const dist = 'dist'
 const html = await readFile(join(dist, 'index.html'), 'utf8')
-const initialRefs = new Set([...html.matchAll(/(?:src|href)="\/?([^"]+\.(?:js|css))"/g)].map((m) => m[1]))
+const initialRefs = new Set([...html.matchAll(/(?:src|href)="(?:\.?\/)?([^"]+\.(?:js|css))"/g)].map((m) => m[1]))
 const files = []
 for (const f of await walk(dist)) {
   const buf = await readFile(f)
@@ -101,7 +101,8 @@ for (const f of media) {
     if (size > BUDGET.video) flag('high', `video ${f} is ${kb(size)} (> ${kb(BUDGET.video)})`)
     if (ext === '.mov') flag('high', `${f} — .mov is not a web delivery format`)
   }
-  if (['.ttf', '.otf', '.woff'].includes(ext)) flag('medium', `font ${f} — ship subset woff2 only`)
+  if (['.ttf', '.otf'].includes(ext)) flag('medium', `font ${f} — ship subset woff2 only`)
+  if (ext === '.woff') flag('low', `font ${f} — woff fallback emitted (never fetched by browsers that support woff2)`)
   if (ext === '.woff2' && size > BUDGET.font) flag('medium', `font ${f} is ${kb(size)} — subset it`)
 }
 for (const [key, s] of sequences) {

@@ -1,47 +1,73 @@
 /*
- * Design tokens — PROVISIONAL.
- *
- * The creative direction has not been chosen yet (see docs/creative/BRIEF.md).
- * These values are a neutral, material-derived starting point so the harness
- * scenes render; they will be replaced wholesale by the chosen direction's
- * palette and type system. The token NAMES are the stable contract.
+ * Design tokens — Direction B, "Maveli Comes Home" (see docs/creative/BRIEF.md).
+ * A contemporary take on Kerala mural painting's panchavarna (five colours:
+ * lamp black, verdigris, red ochre, yellow ochre, lime white) plus the
+ * materials of the story. Colours are named for what they are.
  */
 :root {
-  /* Colour — named for materials, not for UI roles. */
-  --c-ink: #22170f;          /* lamp-black / wet laterite shadow */
-  --c-paper: #efe6d4;        /* unbleached handmade paper */
-  --c-rice: #f6f1e6;         /* cooked matta rice highlight */
-  --c-leaf: #2f5a2a;         /* banana leaf, mature */
-  --c-leaf-young: #7fa33a;   /* banana leaf, tender edge */
-  --c-kasavu: #c9a23a;       /* kasavu zari gold */
-  --c-marigold: #e58a1f;     /* chendumalli */
-  --c-thetti: #b8322a;       /* thechi / ixora red */
-  --c-laterite: #9b4a2c;     /* laterite stone */
-  --c-brass: #a88532;        /* uruli / nilavilakku brass */
-  --c-water: #2d4a4c;        /* backwater at dusk */
+  /* Panchavarna */
+  --c-black: #17130f;        /* lamp black — line and night */
+  --c-verdigris: #2e5b48;    /* mural green */
+  --c-red-ochre: #a33b1f;
+  --c-yellow-ochre: #d39a2c;
+  --c-lime: #ece5d2;         /* lime white — highlight and line, never a page ground */
 
-  /* Type — families are placeholders until the direction is chosen. */
-  --font-display: ui-serif, Georgia, 'Times New Roman', serif;
-  --font-text: ui-serif, Georgia, serif;
-  --font-malayalam: 'Noto Serif Malayalam', 'Manjari', ui-serif, serif;
+  /* Sky & water */
+  --c-indigo: #243452;       /* pre-dawn */
+  --c-indigo-deep: #141c30;
+  --c-dawn: #e9c98b;         /* first light */
+  --c-dawn-pale: #f2dfb4;
 
-  /* Fluid type scale (min 360px → max 1600px viewport). */
-  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.95rem);
+  /* Land & house */
+  --c-earth: #6b3a24;        /* swept laterite earth of the muttam */
+  --c-laterite: #9b4a2c;
+  --c-oxide: #6e2419;        /* red-oxide floor */
+  --c-wood: #3a2416;
+  --c-tile: #8f3a21;         /* clay roof tile */
+
+  /* Leaf & field */
+  --c-leaf: #3f7a34;
+  --c-leaf-dark: #24502a;
+  --c-leaf-young: #8db33a;
+  --c-paddy: #7da83a;
+
+  /* Flowers (pookalam) */
+  --c-thumba: #f6f3ea;
+  --c-mukkutti: #edbe2e;
+  --c-chethi: #c5302a;
+  --c-chendumalli: #e8861c;
+  --c-vadamalli: #a3346c;
+  --c-shankhu: #2c3f99;
+
+  /* Cloth & brass */
+  --c-kasavu: #c9a23a;       /* zari gold — lines only */
+  --c-mundu: #efe8d6;        /* off-white handloom */
+  --c-brass: #b08d3c;
+  --c-rice: #f4efe3;
+
+  /* Legacy aliases used by core styles */
+  --c-ink: var(--c-black);
+  --c-paper: var(--c-lime);
+
+  /* Type */
+  --font-display: 'Young Serif', ui-serif, Georgia, serif;
+  --font-text: 'Manjari', ui-sans-serif, system-ui, sans-serif;
+  --font-malayalam: 'Manjari', 'Noto Sans Malayalam', sans-serif;
+
+  --step--1: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
   --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.2rem);
   --step-1: clamp(1.25rem, 1.1rem + 0.6vw, 1.7rem);
   --step-2: clamp(1.6rem, 1.3rem + 1.4vw, 2.8rem);
-  --step-3: clamp(2.2rem, 1.5rem + 3vw, 5rem);
-  --step-4: clamp(3rem, 1.6rem + 6vw, 9rem);
-  --step-5: clamp(4rem, 1.5rem + 11vw, 15rem);
+  --step-3: clamp(2.1rem, 1.5rem + 2.8vw, 4.6rem);
+  --step-4: clamp(2.6rem, 1.6rem + 5vw, 7.5rem);
 
-  /* Space */
-  --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --gutter: clamp(1.25rem, 0.5rem + 3vw, 3.5rem);
+  /* Top-anchored copy starts below the fixed chrome buttons. */
+  --top-safe: max(calc(var(--gutter) * 1.3), 4.5rem);
 
-  /* Motion — named eases used across scenes so the whole film shares one "hand". */
   --ease-breath: cubic-bezier(0.45, 0, 0.2, 1);
   --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Layering */
   --z-grain: 50;
   --z-chrome: 40;
 }

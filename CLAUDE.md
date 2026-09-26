@@ -4,10 +4,15 @@ A static, scroll-driven film that invites guests to a Sadhya on Thiruvonam.
 Quality bar: an interactive digital art piece / award-level editorial site —
 never a landing page, template, card grid or "AI-looking" page.
 
-**Current phase: creative direction not yet chosen.** Read
-`docs/creative/BRIEF.md` first. Do not build final scenes until the host has
-picked a direction there; the scenes in `src/scenes/_harness/` are architecture
-proofs, not design.
+**Current phase: Direction B ("Maveli Comes Home") is built** — seven scenes in
+`src/scenes/01-…07-*`. Read `docs/creative/BRIEF.md` (§6 storyboard, §11 decision
+log) before changing anything. All words live in `src/content.ts`. Hosted on
+GitHub Pages via `.github/workflows/deploy.yml` (deploys on push to `main`).
+
+Pending from the hosts: the Google Form URL (`event.rsvpUrl`), Malayalam
+proofreading (then set `MALAYALAM_VERIFIED = true`), and any date/venue changes.
+If the site URL changes, update the absolute `og:image`/`og:url` in `index.html`
+and regenerate `public/og.jpg` (a 1200×630 capture of the lit beam in the nadumuttam scene).
 
 ## Commands
 
@@ -30,7 +35,8 @@ npm run assets:video -- <in> <name> [--scrub]        # AV1 + H.264 + posters →
 npm run assets:sequence -- <in> <name> [--fps 24]    # WebP frames desktop/mobile → public/media/sequences/<name>/
 ```
 
-QA/perf scripts start their own server if none is running. Artifacts are
+QA/perf scripts start their own server if none is running. "Single flat colour"
+findings at the backwater→paddy and padippura→pookalam seams are by design. Artifacts are
 gitignored. Environment: Playwright 1.56 is pinned to match the pre-installed
 Chromium (`/opt/pw-browsers`) — don't upgrade it or run `playwright install`
 in the cloud container. `ffmpeg` may be missing in a fresh container
@@ -46,11 +52,15 @@ src/
   core/scene/                types.ts (SceneDefinition, per-mode entry), useScene.ts (useGSAP + gsap.matchMedia),
                              Scene.tsx (<Scene> frame with data-scene), SceneSequence.tsx
   core/media/                useCanvasStage (DPR-capped, visible-only, gsap.ticker), ScrollVideo, ImageSequence
-  core/audio/sound.ts        opt-in sound director (never autoplays)
+  core/audio/ambience.ts     opt-in procedural WebAudio ambience, per-scene mix (never autoplays)
   core/qa/qaBridge.ts        window.__onam for Playwright tooling (dev or ?qa)
   core/atmosphere/           Grain
   scenes/registry.ts         THE ORDER OF THE FILM — add/remove/reorder scenes here
-  scenes/<id>/               one folder per scene (component, css, local assets)
+  scenes/<nn-id>/            one folder per scene (component, css); scenes/shared/ for cross-scene geometry
+  art/                       procedural illustration: palms, banana plant, pookalam, leaf + dishes, nilavilakku
+  components/                Chrome (details jump + sound toggle), Ml (Malayalam with data-verify)
+  content.ts                 EVERY WORD ON THE SITE + event facts + the Sadhya (serving order, leaf positions)
+  lib/calendar.ts            .ics data URL + RSVP link
   styles/                    reset, tokens (material-named design tokens), global
   assets/                    imported assets by category — see src/assets/README.md
 public/media/                streamed video / image sequences / audio

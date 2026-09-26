@@ -1,0 +1,23 @@
+.s-padippura .pp-reveal { clip-path: inset(0 0 0 100%); }
+.pp-lintel { font-family: var(--font-malayalam); font-weight: 700; font-size: 31px; letter-spacing: 1px; }
+.pp-trunk {
+  position: absolute; top: -5%; bottom: -5%; left: 100%; width: clamp(90px, 14vw, 220px);
+  background:
+    repeating-linear-gradient(176deg, transparent 0 46px, rgb(23 19 15 / 0.35) 46px 50px),
+    linear-gradient(90deg, #2b1a10, var(--c-wood) 35%, #4a2e1b 60%, #2b1a10);
+  border-radius: 40% 40% 0 0 / 4% 4% 0 0;
+}
+.pp-caption {
+  position: absolute; left: var(--gutter); bottom: calc(var(--gutter) * 1.2);
+  display: grid; gap: 0.1em; color: var(--c-lime); opacity: 0;
+  font-size: var(--step-0); padding: 0.6rem 0.9rem 0.5rem; background: rgb(23 19 15 / 0.6); border-radius: 2px;
+}
+.pp-caption-ml { font-size: var(--step-2); font-weight: 700; color: var(--c-yellow-ochre); }
+@media (max-width: 899.98px) {
+  .pp-caption { bottom: auto; top: var(--top-safe); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-padippura .pp-reveal { clip-path: none; }
+  .pp-trunk { display: none; }
+  .pp-caption { opacity: 1; }
+}

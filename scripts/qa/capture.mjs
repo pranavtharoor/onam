@@ -89,7 +89,7 @@ for (const pass of passes) {
       const stats = await sharp(file).stats()
       const blank = stats.channels.every((c) => c.stdev < 2)
       const findings = await page.evaluate(layoutProbe, isMobile)
-      if (blank) findings.push('frame is visually blank (uniform colour)')
+      if (blank) findings.push('frame is a single flat colour — fine only at a designed seam (e.g. dawn sky, courtyard earth)')
       for (const f of new Set(findings)) layout.push({ scene: scene.id, progress: p, y, finding: f })
       shots.push({ file, label: `${scene.id} @${Math.round(p * 100)}% (y=${y})` })
     }
