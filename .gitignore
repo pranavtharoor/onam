@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+# QA / perf output (screenshots, filmstrips, reports) — regenerated on demand
+qa-artifacts/
+# raw source media before optimisation
+media-src/
+.vite/

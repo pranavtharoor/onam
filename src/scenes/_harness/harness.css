@@ -1,0 +1,37 @@
+/* Architecture-harness styling: deliberately neutral wireframe shapes. Not design. */
+.h-shape { position: absolute; border: 1.5px solid currentColor; }
+.h-caption { position: absolute; left: var(--gutter); bottom: var(--gutter); max-width: 34ch; font-size: var(--step--1); opacity: 0.7; }
+
+/* Opening */
+.h-open { color: var(--c-paper); }
+.h-open .layer--far  .h-shape { inset: 18% 22%; border-radius: 50% 50% 0 0; opacity: .35; }
+.h-open .layer--mid  .h-shape { inset: 34% 8% 0 8%; opacity: .6; }
+.h-open .layer--near .h-shape { inset: 60% -5% -10% -5%; border-radius: 40% 60% 0 0; opacity: .9; }
+.h-open__title {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: var(--step-5); line-height: .9; letter-spacing: -0.02em;
+}
+
+/* Travel */
+.h-travel { color: var(--c-ink); }
+.h-travel__track { display: flex; height: 100%; width: max-content; }
+.h-travel__panel {
+  position: relative; width: 70vw; height: 100%; flex: none; display: grid; align-content: end;
+  padding: var(--gutter); border-left: 1.5px solid color-mix(in srgb, currentColor 30%, transparent);
+  font-size: var(--step-2); font-family: var(--font-display);
+}
+.h-travel__panel .h-shape { inset: 15% 12% 35% 12%; border-radius: 999px 999px 0 0; }
+@media (max-width: 899.98px), (prefers-reduced-motion: reduce) {
+  .h-travel .scene__stage { height: auto; }
+  .h-travel__track { flex-direction: column; width: 100%; }
+  .h-travel__panel { width: 100%; height: 80svh; border-left: 0; border-top: 1.5px solid color-mix(in srgb, currentColor 30%, transparent); }
+}
+
+/* Reveal */
+.h-reveal { color: var(--c-rice); clip-path: circle(0% at 50% 60%); }
+.h-reveal__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.h-reveal__title {
+  position: absolute; left: var(--gutter); right: var(--gutter); top: 30%;
+  font-family: var(--font-display); font-size: var(--step-4); line-height: .95;
+}
+@media (prefers-reduced-motion: reduce) { .h-reveal { clip-path: none; } }

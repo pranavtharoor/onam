@@ -1,0 +1,68 @@
+@import './reset.css';
+@import './tokens.css';
+
+html { background: var(--c-ink); color: var(--c-paper); }
+body { font-family: var(--font-text); font-size: var(--step-0); line-height: 1.55; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* Scene frame */
+.scene {
+  position: relative;
+  z-index: var(--scene-z);
+  background: var(--scene-ground, transparent);
+  isolation: isolate;
+}
+.scene__stage {
+  position: relative;
+  height: 100svh;
+  overflow: clip;
+}
+/* Overlap entry: layer over the previous scene's held final frame (per motion mode). */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .scene[data-entry-desktop='overlap'] { margin-top: -100svh; }
+}
+@media (max-width: 899.98px) and (prefers-reduced-motion: no-preference) {
+  .scene[data-entry-mobile='overlap'] { margin-top: -100svh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene[data-entry-reduced='overlap'] { margin-top: -100svh; }
+}
+.layer { position: absolute; inset: 0; will-change: transform; }
+
+/* Atmosphere */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 1.2s steps(6) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* QA still mode: freeze clock-driven ambient CSS motion (see core/motion/ambient.ts). */
+.qa-still .grain, .qa-still [data-ambient] { animation-play-state: paused !important; }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+  .layer { will-change: auto; }
+}

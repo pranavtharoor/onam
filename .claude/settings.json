@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run preview:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run qa:capture:*)",
+      "Bash(npm run qa:motion:*)",
+      "Bash(npm run perf:report:*)",
+      "Bash(npm run assets:images:*)",
+      "Bash(npm run assets:svg:*)",
+      "Bash(npm run assets:video:*)",
+      "Bash(npm run assets:sequence:*)",
+      "Bash(npx tsc:*)",
+      "Bash(node scripts/qa/*)",
+      "Bash(node scripts/perf/*)",
+      "Bash(ffprobe:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [{ "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh", "timeout": 300 }]
+      }
+    ]
+  }
+}
