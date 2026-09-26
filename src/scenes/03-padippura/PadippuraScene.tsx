@@ -19,7 +19,8 @@ const ORIGIN = { x: EARTH.x + EARTH.w / 2, y: EARTH.y + EARTH.h / 2 }
  * The gatehouse. Enters by a coconut-trunk occlusion wipe over the paddy's held
  * frame; the camera then walks up to the lintel (സ്വാഗതം, "welcome") and flies
  * through the doorway until the courtyard's earth fills the frame — the first
- * frame of the pookalam scene.
+ * frame of the pookalam scene. While the pookalam is skipped, it holds that earth
+ * frame for one viewport and the nadumuttam irises open over it.
  */
 export function PadippuraScene(props: SceneProps) {
   const root = useRef<HTMLElement>(null)
@@ -49,7 +50,8 @@ export function PadippuraScene(props: SceneProps) {
       const rect = root.getBoundingClientRect()
       const px = ORIGIN.x * m.a + m.e - rect.left
       const py = ORIGIN.y * m.d + m.f - rect.top
-      const halfW = (EARTH.w * m.a) / 2, halfH = (EARTH.h * m.d) / 2
+      // The opened door leaves cover 22 units of each side of the earth: fill the gap between them.
+      const halfW = ((EARTH.w - 2 * 22) * m.a) / 2, halfH = (EARTH.h * m.d) / 2
       // …and far enough that the courtyard details at the top of the doorway have left the frame.
       const clearTop = py / ((ORIGIN.y - (EARTH.y + 40)) * m.d)
       return Math.max(Math.max(px, innerWidth - px) / halfW, Math.max(py, innerHeight - py) / halfH, clearTop) * 1.06
@@ -70,9 +72,15 @@ export function PadippuraScene(props: SceneProps) {
       // left: 100% → 0 as a transform (no layout per frame).
       .fromTo(trunk, { x: 0, xPercent: 0 }, { x: () => -(trunk.offsetParent as HTMLElement | null ?? root).clientWidth, xPercent: -100 }, 0)
 
+    // If the next scene overlaps this one (today: the nadumuttam iris, while the pookalam
+    // is skipped), hold the all-earth last frame for one viewport underneath it. Same pace
+    // either way: the fly-through keeps its length and the hold adds 100% on top.
+    const next = root.nextElementSibling as HTMLElement | null
+    const holdEnd = next?.dataset[`entry${mode === 'desktop' ? 'Desktop' : 'Mobile'}`] === 'overlap'
+    const length = mode === 'desktop' ? 240 : 200
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=240%' : '+=200%', pin: true, ...pinned(mode), invalidateOnRefresh: true },
+      scrollTrigger: { trigger: root, start: 'top top', end: `+=${length + (holdEnd ? 100 : 0)}%`, pin: true, ...pinned(mode), invalidateOnRefresh: true },
     })
     tl.addLabel('approach')
       .to(q('#pp-house'), { scale: 1.55, svgOrigin: `${ORIGIN.x} ${ORIGIN.y}`, duration: 0.35 }, 0)
@@ -86,6 +94,7 @@ export function PadippuraScene(props: SceneProps) {
       .to(q('#pp-house'), { scale: flyScale, svgOrigin: `${ORIGIN.x} ${ORIGIN.y}`, duration: 0.5, ease: 'power2.in' }, 0.5)
       .to(q('#pp-plants-l'), { x: -1400, duration: 0.3 }, 0.5)
       .to(q('#pp-plants-r'), { x: 1400, duration: 0.3 }, 0.5)
+    if (holdEnd) tl.addLabel('hold-earth', 1).to({}, { duration: 100 / length })
   })
 
   return (

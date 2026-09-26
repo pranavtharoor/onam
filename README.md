@@ -1,8 +1,7 @@
 # Onam Sadhya — an invitation
 
 A scroll-driven film that invites you to an Onam Sadhya. You arrive at a
-Kerala backwater before dawn, cross the paddy, walk through the gatehouse, watch
-ten mornings of pookalam, look up through the courtyard, walk the row of banana
+Kerala backwater before dawn, cross the paddy, walk through the gatehouse, look up through the courtyard, walk the row of banana
 leaves as the meal is served, and sit down at the one leaf left empty.
 
 React + Vite + TypeScript, GSAP/ScrollTrigger, Lenis, hand-built SVG and a

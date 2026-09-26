@@ -5,6 +5,7 @@ import type { SceneDefinition } from './types'
 /**
  * Renders the ordered scene list. Order in the array is scroll order — adding,
  * removing or reordering scenes is a one-line change in src/scenes/registry.ts.
+ * Scenes marked `skip` are left out (their code stays in the repo).
  *
  * Scenes mount top-to-bottom, so their ScrollTriggers are created in page order
  * (which is what ScrollTrigger's refresh logic expects).
@@ -17,7 +18,7 @@ export function SceneSequence({ scenes }: { scenes: SceneDefinition[] }) {
 
   return (
     <main className="sequence">
-      {scenes.map(({ id, title, Component, entry = 'cut', ground }, index) => (
+      {scenes.filter((s) => !s.skip).map(({ id, title, Component, entry = 'cut', ground }, index) => (
         <Component key={id} id={id} title={title} entry={entry} ground={ground} index={index} />
       ))}
     </main>

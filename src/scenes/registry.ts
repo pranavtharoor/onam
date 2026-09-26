@@ -15,7 +15,9 @@ export const scenes: SceneDefinition[] = [
   { id: 'backwater', title: 'Backwater before dawn', Component: BackwaterScene, ground: 'var(--c-indigo-deep)' },
   { id: 'paddy', title: 'Dawn over paddy and coconut trees', Component: PaddyScene, ground: 'var(--c-dawn)' },
   { id: 'padippura', title: 'The gatehouse', Component: PadippuraScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
-  { id: 'pookalam', title: 'Ten mornings of the pookalam', Component: PookalamScene, ground: 'var(--c-earth)' },
+  // Skipped at the hosts' request (2026-09-26); set skip: false to restore. Restoring also
+  // restores the match cut: nadumuttam then opens through the finished pookalam's circle.
+  { id: 'pookalam', title: 'Ten mornings of the pookalam', Component: PookalamScene, ground: 'var(--c-earth)', skip: true },
   { id: 'nadumuttam', title: 'The courtyard open to the sky', Component: NadumuttamScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
   { id: 'sadhya-row', title: 'The row of leaves', Component: SadhyaRowScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
   { id: 'your-leaf', title: 'Your leaf and the invitation', Component: YourLeafScene, ground: 'var(--c-oxide)' },

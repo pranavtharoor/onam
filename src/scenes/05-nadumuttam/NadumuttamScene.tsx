@@ -22,7 +22,8 @@ export const FLAME_AT = { x: 0.5, y: 0.8 }
 /**
  * Inside the nalukettu, looking up through the nadumuttam at the square of sky,
  * rain from last night dripping off the eaves toward the lens. It match-cuts in
- * through the pookalam's circle. Then the camera tilts down to the beam, where
+ * through the pookalam's circle (or, while the pookalam is skipped, a square
+ * opening grows over the gatehouse's held courtyard earth). Then the camera tilts down to the beam, where
  * the invitation is painted like a Kerala signboard, above a lit nilavilakku.
  * Holds for one viewport: the Sadhya hall irises open from the lamp flame.
  */
@@ -84,19 +85,32 @@ export function NadumuttamScene(props: SceneProps) {
   useScene(root, ({ root, mode, q }) => {
     if (mode === 'reduced') return
     const svg = q('svg.nm-up')[0] as SVGSVGElement
-    // Entry: the pookalam's circle becomes the opening onto the sky.
+    // Entry. With the pookalam in the film, its finished circle becomes the opening onto
+    // the sky (a match cut). While the pookalam is skipped, a square opening (the shape
+    // of the nadumuttam's sky) grows from nothing at the same centre, over the gatehouse's
+    // held courtyard earth: stepping through into the open courtyard. Square, not round,
+    // so it doesn't repeat the lamp-flame iris that follows this scene.
     const reveal = q('.nm-reveal')[0] as HTMLElement
+    const matchCut = !!document.querySelector('[data-scene="pookalam"]')
     ScrollTrigger.create({
       trigger: root, start: 'top bottom', end: 'top top', scrub: true,
       onUpdate: (self) => {
         // Hold the revealed layer still on screen while the section scrolls up underneath,
-        // so the opening stays locked onto the (pinned) pookalam's circle.
+        // so the opening stays locked onto the (pinned) frame underneath.
         const top = root.getBoundingClientRect().top
         reveal.style.transform = self.progress >= 1 ? '' : `translateY(${(-top).toFixed(1)}px)`
         const c = courtyardOnScreen(svg, reveal)
         const full = Math.hypot(innerWidth, innerHeight)
-        const p = gsap.parseEase('power2.in')(self.progress)
-        reveal.style.clipPath = self.progress >= 1 ? 'none' : `circle(${(c.r + (full - c.r) * p).toFixed(1)}px at ${c.x.toFixed(1)}px ${c.y.toFixed(1)}px)`
+        if (self.progress >= 1) { reveal.style.clipPath = 'none'; return }
+        if (matchCut) {
+          const p = gsap.parseEase('power2.in')(self.progress)
+          reveal.style.clipPath = `circle(${(c.r + (full - c.r) * p).toFixed(1)}px at ${c.x.toFixed(1)}px ${c.y.toFixed(1)}px)`
+        } else {
+          const W = innerWidth, H = innerHeight
+          const h = Math.max(c.x, W - c.x, c.y, H - c.y) * gsap.parseEase('power1.in')(self.progress)
+          const e = (v: number) => `${Math.max(0, v).toFixed(1)}px`
+          reveal.style.clipPath = `inset(${e(c.y - h)} ${e(W - c.x - h)} ${e(H - c.y - h)} ${e(c.x - h)})`
+        }
       },
       onLeaveBack: () => { reveal.style.clipPath = ''; reveal.style.transform = '' },
     })

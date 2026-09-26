@@ -29,6 +29,12 @@ export interface SceneDefinition {
   entry?: SceneEntryByMode
   /** Background behind the scene before its own layers paint (avoids flashes). */
   ground?: string
+  /**
+   * Leave the scene out of the film without deleting it. When you skip one, check
+   * the seam it leaves: the next scene's `overlap` entry needs the new previous
+   * scene to hold its last frame.
+   */
+  skip?: boolean
 }
 
 export interface SceneProps {

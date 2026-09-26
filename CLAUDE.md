@@ -5,7 +5,7 @@ Quality bar: an interactive digital art piece / award-level editorial site —
 never a landing page, template, card grid or "AI-looking" page.
 
 **Current phase: Direction B ("Maveli Comes Home") is built** — seven scenes in
-`src/scenes/01-…07-*`. Read `docs/creative/BRIEF.md` (§6 storyboard, §11 decision
+`src/scenes/01-…07-*`; `04-pookalam` is skipped (`skip: true` in the registry, code kept). Read `docs/creative/BRIEF.md` (§6 storyboard, §11 decision
 log) before changing anything. All words live in `src/content.ts`. Hosted on
 GitHub Pages: `.github/workflows/deploy.yml` builds on push to `main` and publishes
 `dist/` to the `gh-pages` branch (served at https://pranavtharoor.github.io/onam/).
@@ -40,7 +40,7 @@ npm run assets:sequence -- <in> <name> [--fps 24]    # WebP frames desktop/mobil
 ```
 
 QA/perf scripts start their own server if none is running. "Single flat colour"
-findings at the backwater→paddy and padippura→pookalam seams are by design. Artifacts are
+findings at the backwater→paddy seam and on the gatehouse's held courtyard-earth frame (padippura end) are by design. Artifacts are
 gitignored. Environment: Playwright 1.56 is pinned to match the pre-installed
 Chromium (`/opt/pw-browsers`) — don't upgrade it or run `playwright install`
 in the cloud container. `ffmpeg` may be missing in a fresh container

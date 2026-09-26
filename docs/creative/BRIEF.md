@@ -276,6 +276,12 @@ being served; (7) the leaf folding into the invitation.
 Transitions in order: light change → occlusion wipe → fly-through → match cut
 (circle→square) → iris → hold. No device repeats.
 
+**As shipped (2026-09-26): scene 4 `pookalam` is skipped** (`skip: true` in
+`src/scenes/registry.ts`; code, art and copy kept). The gatehouse fly-through now
+holds its courtyard-earth frame for one viewport, and the nadumuttam enters over it
+as a square of sky growing from the courtyard centre: light change → occlusion
+wipe → fly-through → square opening → iris → hold.
+
 Sound hooks (explored, later dropped — the film is silent; see decision log): water at 1, birds at 2, gate creak at 3,
 chenda far away at 4, rain drip at 5, the clatter and murmur of a Sadhya hall at 6,
 silence at 7.
@@ -331,6 +337,7 @@ lens flares, no animated blur.
 | 2026-09-26 | Venue is "Clubhouse, Confident Bellatrix" (matches the hosts' poster); the hero still addresses "our neighbours at Confident Bellatrix" (`event.community`) | Maps query stays on the community |
 | 2026-09-26 | Link preview (`og.jpg`) is the hosts' printed poster, whole and uncropped, letterboxed to 1200×630 on its own cream (`npm run assets:og`); original kept at `/invitation-poster.jpg` | Guests recognise the poster; a portrait image would otherwise be centre-cropped, losing date and venue |
 | 2026-09-26 | iPhone performance pass. Phones and touch devices: the grain is static, viewport-sized and not blend-moded (opacity 0.045); the backwater ripples don't drift. The backwater camera and the pookalam pull-back move whole composited SVG layers; the rain is drawn at 1× with half the drops; pinned scenes scrub at 0.6 (desktop 1) with `anticipatePin` | A moving full-screen `mix-blend-mode` layer and transforms inside SVGs make iOS Safari re-composite or re-rasterise the page every frame. Headless mobile at 4× CPU: frames over 33ms 7% → 2–3%, p99 50 → 33.4ms; idle repaint on the opening frame gone |
+| 2026-09-26 | **Pookalam scene skipped** at the hosts' request (`skip: true`; set `skip: false` to restore). The gatehouse holds its all-earth last frame for 1 viewport (only when the next scene overlaps it); the nadumuttam enters as a square of sky growing from 0 at the courtyard centre instead of the pookalam match cut | A circle growing on flat earth would repeat the lamp-flame iris that follows; the square is the nadumuttam's own shape. Restoring the pookalam restores the match cut automatically |
 
 ## 12. What we need from the hosts
 
