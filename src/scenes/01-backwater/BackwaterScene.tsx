@@ -130,7 +130,12 @@ export function BackwaterScene(props: SceneProps) {
         <svg className="fill bw-layer bw-layer--bank" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g id="bw-bank">
             <path d={`M-400,${HORIZON} L-400,${HORIZON - 14} Q300,${HORIZON - 26} 800,${HORIZON - 18} T2000,${HORIZON - 16} L2000,${HORIZON}Z`} fill="var(--c-black)" />
-            <path d={`M520,${HORIZON - 20} l40,-34 l40,34 z M1140,${HORIZON - 18} l55,-40 l55,40 z`} fill="var(--c-black)" />
+            {/* Two houses on the far bank: steep roof with a small eave over a short wall that
+                runs down to HORIZON, below the bank's curved top edge, so they always stand on it. */}
+            <path d={[
+              `M526,${HORIZON} V${HORIZON - 36} H514 L560,${HORIZON - 66} L606,${HORIZON - 36} H594 V${HORIZON}Z`,
+              `M1150,${HORIZON} V${HORIZON - 38} H1136 L1195,${HORIZON - 76} L1254,${HORIZON - 38} H1240 V${HORIZON}Z`,
+            ].join(' ')} fill="var(--c-black)" />
             {[
               { x: 120, h: 300, lean: 30, seed: 3 }, { x: 330, h: 240, lean: -20, seed: 5 }, { x: 640, h: 330, lean: 45, seed: 8 },
               { x: 1010, h: 260, lean: -35, seed: 13 }, { x: 1300, h: 340, lean: 25, seed: 21 }, { x: 1500, h: 250, lean: -15, seed: 34 },

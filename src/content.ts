@@ -98,14 +98,14 @@ export type DishKind = 'salt' | 'upperi' | 'varatti' | 'pappadam' | 'pickle' | '
 export interface Dish { id: string; name: string; ml?: string; kind: DishKind; stage: number; x: number; y: number; r: number; color: string; fleck?: string }
 
 export const sadhya: Dish[] = [
-  { id: 'salt', name: 'Salt', kind: 'salt', stage: 0, x: 150, y: 70, r: 14, color: '#f7f5ef' },
-  { id: 'upperi', name: 'Banana chips', ml: 'ഉപ്പേരി', kind: 'upperi', stage: 0, x: 225, y: 85, r: 38, color: '#e9b82e' },
-  { id: 'varatti', name: 'Sharkara varatti', kind: 'varatti', stage: 0, x: 305, y: 75, r: 30, color: '#8a4a1c' },
+  { id: 'salt', name: 'Salt', kind: 'salt', stage: 0, x: 178, y: 104, r: 12, color: '#f7f5ef' },
+  { id: 'upperi', name: 'Banana chips', ml: 'ഉപ്പേരി', kind: 'upperi', stage: 0, x: 252, y: 104, r: 32, color: '#e9b82e' },
+  { id: 'varatti', name: 'Sharkara varatti', kind: 'varatti', stage: 0, x: 330, y: 86, r: 26, color: '#8a4a1c' },
   { id: 'pappadam', name: 'Pappadam', kind: 'pappadam', stage: 0, x: 175, y: 215, r: 64, color: '#eadcb4' },
   { id: 'naranga', name: 'Lime pickle', kind: 'pickle', stage: 1, x: 120, y: 140, r: 20, color: '#c28a1e', fleck: '#6b3d12' },
   { id: 'manga', name: 'Mango pickle', kind: 'pickle', stage: 1, x: 380, y: 70, r: 22, color: '#b8431c', fleck: '#e3a04a' },
   { id: 'puliinji', name: 'Puli inji', kind: 'pickle', stage: 1, x: 445, y: 72, r: 20, color: '#5a2413', fleck: '#c8762a' },
-  { id: 'pazham', name: 'Banana', ml: 'പഴം', kind: 'pazham', stage: 1, x: 150, y: 330, r: 58, color: '#e8c33f' },
+  { id: 'pazham', name: 'Banana', ml: 'പഴം', kind: 'pazham', stage: 1, x: 262, y: 322, r: 46, color: '#e8c33f' },
   { id: 'kichadi', name: 'Kichadi', kind: 'curry', stage: 2, x: 515, y: 80, r: 30, color: '#e9e2cf', fleck: '#8aa447' },
   { id: 'pachadi', name: 'Pineapple pachadi', kind: 'curry', stage: 2, x: 585, y: 78, r: 30, color: '#e3b62c', fleck: '#7a2a4a' },
   { id: 'thoran', name: 'Thoran', kind: 'curry', stage: 2, x: 655, y: 84, r: 32, color: '#6f9a34', fleck: '#f1ead6' },
