@@ -38,7 +38,7 @@ moved them — not because it was flashy.
 - Malayalam is meaning, verified by a native reader, never texture.
 - Desktop and mobile are separate compositions; reduced motion is a designed still film.
 - The invitation facts are unmissable and plain: what, when, where, RSVP, dietary note, dress, how to find the door.
-- Sound is optional and off until the guest turns it on.
+- The film is silent: no sound layer.
 
 ---
 
@@ -276,7 +276,7 @@ being served; (7) the leaf folding into the invitation.
 Transitions in order: light change → occlusion wipe → fly-through → match cut
 (circle→square) → iris → hold. No device repeats.
 
-Sound hooks (optional, off by default): water at 1, birds at 2, gate creak at 3,
+Sound hooks (explored, later dropped — the film is silent; see decision log): water at 1, birds at 2, gate creak at 3,
 chenda far away at 4, rain drip at 5, the clatter and murmur of a Sadhya hall at 6,
 silence at 7.
 
@@ -327,6 +327,7 @@ lens flares, no animated blur.
 | 2026-09-26 | Sound is procedural WebAudio (water, birds, distant chenda, rain drips, hall murmur), opt-in, per-scene mix | No audio files to download or license; nothing plays without a tap |
 | 2026-09-26 | Malayalam on the site proofread and approved by the host's father; `MALAYALAM_VERIFIED = true` | Any new Malayalam string needs the same review before shipping |
 | 2026-09-26 | RSVP points to the site itself (new tab) until the Google Form exists | Host request; change `event.rsvpUrl` in `src/content.ts` |
+| 2026-09-26 | Sound removed at the host's request: no toggle, no WebAudio code | The film is silent; supersedes the procedural-sound decision above |
 
 ## 12. What we need from the hosts
 
@@ -334,5 +335,5 @@ lens flares, no animated blur.
 2. Invitation facts: date & time, address + map link, RSVP method, host names, dietary notes (onion/garlic-free?), dress suggestion.
 3. Language balance: mostly English with Malayalam moments, or fully bilingual? Who can proofread Malayalam?
 4. Personal material: family names for the lettering, dish "authors" (C-style chapters work in any direction), photos we could translate into line portraits?
-5. Sound: wanted as an opt-in layer, or silent?
+5. Sound: wanted as an opt-in layer, or silent? (Answered: silent — see decision log.)
 6. Hosting target (e.g. GitHub Pages, Netlify, Vercel) and the link format guests will receive.

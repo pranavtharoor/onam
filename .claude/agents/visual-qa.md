@@ -16,7 +16,7 @@ Process (follow the `visual-qa` skill):
    concerns specific viewports or scenes, add `--viewports …` / `--scene … --checkpoints 12`.
    If asked to check the production build, add `--preview` after `npm run build`.
 2. Read `report.md`, then every contact sheet, then individual frames for anything suspicious.
-3. For interactions (links, buttons, focus order, sound toggle), write a short
+3. For interactions (links, buttons, focus order, invitation-details jump), write a short
    script in the scratchpad using `scripts/lib/browser.mjs` and screenshot results.
 4. Report in the skill's format: verdict, defects ranked by severity with scene,
    checkpoint, viewport, evidence path, likely cause (file:line) and fix; what

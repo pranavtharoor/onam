@@ -23,7 +23,6 @@ src/core/scene/useScene.ts      useGSAP + gsap.matchMedia → choreography(ctx) 
 src/core/scene/Scene.tsx        <Scene> frame: section[data-scene] + per-mode data-entry-*
 src/core/motion/                gsap.ts (registration), media.ts (modes), SmoothScroll (Lenis), ambient.ts
 src/core/media/                 useCanvasStage, ScrollVideo, ImageSequence
-src/core/audio/ambience.ts      opt-in procedural ambience; Chrome.tsx calls ambience.setScene(id) per active scene
 ```
 
 A scene:
@@ -159,14 +158,7 @@ scene timeline (`tl.to(uniforms.uProgress, { value: 1 })`), render from
 `gsap.ticker`, provide a still-image fallback for reduced motion and low-power
 devices, and justify the dependency (three / ogl) in the brief's decision log.
 
-## 9. Sound hook
-
-Each scene's sound is a mix of procedural beds declared in `MIX` in
-`src/core/audio/ambience.ts`, keyed by scene id; `Chrome` switches the mix as
-scenes become active. Add a bed there rather than shipping audio files. Sound is
-only ever enabled by an explicit visitor action; the film must be complete without it.
-
-## 10. Pitfalls
+## 9. Pitfalls
 
 - Pinning inside a transformed/`will-change` ancestor breaks `position: fixed` pins.
 - Creating ScrollTriggers out of page order without `refreshPriority`.

@@ -5,8 +5,8 @@ Two homes, chosen by how an asset is loaded:
 | Home | What goes there | Why |
 |---|---|---|
 | `src/assets/<category>/` | Anything **imported** by code: SVG illustration, textures, fonts, stills | Vite fingerprints and tree-shakes it; unused assets never ship |
-| `public/media/<category>/` | Anything **streamed by URL** at runtime: video, image sequences, audio | Large, lazily fetched, often range-requested; must not be inlined or hashed into JS |
-| `media-src/` (gitignored) | Masters: layered source files, 4K renders, WAVs | Never shipped. Run the `npm run assets:*` scripts to produce web renditions |
+| `public/media/<category>/` | Anything **streamed by URL** at runtime: video, image sequences | Large, lazily fetched, often range-requested; must not be inlined or hashed into JS |
+| `media-src/` (gitignored) | Masters: layered source files, 4K renders | Never shipped. Run the `npm run assets:*` scripts to produce web renditions |
 
 ## Categories
 

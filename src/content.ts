@@ -80,8 +80,6 @@ export const copy = {
     signoff: { ml: 'ഓണാശംസകൾ', roman: 'Onashamsakal', en: 'Happy Onam, a little late.' },
   },
   chrome: {
-    soundOn: 'Sound on',
-    soundOff: 'Sound off',
     details: 'Invitation details',
   },
 }

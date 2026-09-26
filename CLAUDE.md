@@ -55,18 +55,17 @@ src/
   core/scene/                types.ts (SceneDefinition, per-mode entry), useScene.ts (useGSAP + gsap.matchMedia),
                              Scene.tsx (<Scene> frame with data-scene), SceneSequence.tsx
   core/media/                useCanvasStage (DPR-capped, visible-only, gsap.ticker), ScrollVideo, ImageSequence
-  core/audio/ambience.ts     opt-in procedural WebAudio ambience, per-scene mix (never autoplays)
   core/qa/qaBridge.ts        window.__onam for Playwright tooling (dev or ?qa)
   core/atmosphere/           Grain
   scenes/registry.ts         THE ORDER OF THE FILM — add/remove/reorder scenes here
   scenes/<nn-id>/            one folder per scene (component, css); scenes/shared/ for cross-scene geometry
   art/                       procedural illustration: coconut trees, banana plant, pookalam, leaf + dishes, nilavilakku
-  components/                Chrome (details jump + sound toggle), Ml (Malayalam with data-verify)
+  components/                Chrome (details jump), Ml (Malayalam with data-verify)
   content.ts                 EVERY WORD ON THE SITE + event facts + the Sadhya (serving order, leaf positions)
   lib/calendar.ts            .ics data URL + RSVP link
   styles/                    reset, tokens (material-named design tokens), global
   assets/                    imported assets by category — see src/assets/README.md
-public/media/                streamed video / image sequences / audio
+public/media/                streamed video / image sequences
 scripts/{qa,perf,assets,lib} tooling (Node + Playwright + sharp + ffmpeg)
 docs/creative/BRIEF.md       creative brief, directions, storyboard, decision log
 docs/tooling/skills-evaluation.md
@@ -117,5 +116,4 @@ A green build is never evidence that something looks or moves right.
 - Pookalam ≠ rangoli; nilavilakku ≠ diya; leaf tip to the diner's left; serving order respected.
 - Every animation has a purpose in the story; transitions never repeat back to back.
 - Mobile gets its own choreography; reduced motion gets a designed still film.
-- No audio without an explicit visitor action.
 - Keep dependencies intentional: no UI kits, no Next.js/backend, no WebGL until a scene justifies it in the brief.

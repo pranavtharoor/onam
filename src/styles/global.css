@@ -79,18 +79,11 @@ html.lenis, html.lenis body { height: auto; }
   display: flex; justify-content: space-between; padding: max(0.6rem, env(safe-area-inset-top)) 0.75rem 0;
 }
 .chrome-btn {
-  pointer-events: auto; min-height: 44px; padding: 0 0.9rem; display: inline-flex; align-items: center; gap: 0.55rem;
+  pointer-events: auto; min-height: 44px; padding: 0 0.9rem; display: inline-flex; align-items: center;
   font-size: var(--step--1); color: var(--c-lime); background: rgb(23 19 15 / 0.55);
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: 2px;
 }
 .chrome-btn:hover { background: rgb(23 19 15 / 0.75); }
-.chrome-wave { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
-.chrome-wave i { width: 2px; height: 4px; background: currentColor; }
-.chrome-wave.is-on i { animation: wave 0.9s ease-in-out infinite alternate; }
-.chrome-wave.is-on i:nth-child(2) { animation-delay: -0.3s; }
-.chrome-wave.is-on i:nth-child(3) { animation-delay: -0.6s; }
-@keyframes wave { from { height: 3px; } to { height: 12px; } }
 .yl-card-title:focus { outline: none; }
-@media (prefers-reduced-motion: reduce) { .chrome-wave.is-on i { animation: none; height: 8px; } }
 .chrome-details { transition: opacity 0.3s var(--ease-breath); }
 .chrome-details.is-hidden { opacity: 0; pointer-events: none; }

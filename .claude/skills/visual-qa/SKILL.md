@@ -34,7 +34,7 @@ you have looked at it in a real browser at desktop and mobile sizes.
    Then open individual frames for anything suspicious — sheets are thumbnails.
 4. **Judge against the checklist** below and the chosen direction in
    `docs/creative/BRIEF.md`.
-5. For interaction (buttons, RSVP link, sound toggle, keyboard focus), write a
+5. For interaction (buttons, RSVP link, invitation-details jump, keyboard focus), write a
    throwaway script in the scratchpad that imports `scripts/lib/browser.mjs`
    (`launch`, `openSite`, `jump`) and drives the page; screenshot the result.
 6. **Report** (format below). Fix, then re-capture and compare before/after

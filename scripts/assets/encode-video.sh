@@ -12,7 +12,7 @@
 # --scrub  encodes for scroll-controlled playback (ScrollVideo): keyframe every
 #          6 frames so seeking in either direction is cheap. Larger files — only
 #          use for videos driven by scroll. Normal playback uses long GOPs.
-# Audio is always stripped (sound lives in public/media/audio and is opt-in).
+# Audio is always stripped (the film is silent).
 set -euo pipefail
 command -v ffmpeg >/dev/null || { echo "ffmpeg not found. Install it (apt-get install ffmpeg / brew install ffmpeg)."; exit 1; }
 
