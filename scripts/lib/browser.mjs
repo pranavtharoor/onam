@@ -21,10 +21,13 @@ export function parseArgs(argv = process.argv.slice(2)) {
   return out
 }
 
-export async function launch() {
+/** Software WebGL (SwiftShader) for the 3D page. Only passed when a script tests /3d/. */
+export const WEBGL_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader']
+
+export async function launch({ webgl = false } = {}) {
   // Headless Chromium with GPU rasterisation off is what we have in CI/cloud;
   // timings are therefore pessimistic — treat them as relative, not absolute.
-  return chromium.launch({ args: ['--hide-scrollbars', '--autoplay-policy=user-gesture-required'] })
+  return chromium.launch({ args: ['--hide-scrollbars', '--autoplay-policy=user-gesture-required', ...(webgl ? WEBGL_ARGS : [])] })
 }
 
 /**

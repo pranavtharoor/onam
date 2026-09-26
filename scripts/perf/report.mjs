@@ -121,8 +121,8 @@ const pkg = JSON.parse(await readFile('package.json', 'utf8'))
 
 // ---------- runtime ----------
 const viewports = String(args.viewports ?? 'desktop,mobile').split(',')
-const server = await ensureServer({ url: args.url, mode: 'preview' })
-const browser = await launch()
+const server = await ensureServer({ page: args.page, url: args.url, mode: 'preview' })
+const browser = await launch({ webgl: !!args.page })
 const runtime = []
 for (const preset of viewports) {
   const { context, page, issues } = await openSite(browser, server.url, preset)

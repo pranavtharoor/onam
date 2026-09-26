@@ -6,10 +6,17 @@ async function reachable(url) {
 }
 
 /**
- * @param {{ url?: string, mode?: 'dev' | 'preview', port?: number }} opts
+ * `page` selects another page of the site, e.g. '3d' → <server>/3d/.
+ * @param {{ url?: string, mode?: 'dev' | 'preview', port?: number, page?: string }} opts
  * @returns {Promise<{ url: string, stop: () => void }>}
  */
-export async function ensureServer({ url, mode = 'dev', port } = {}) {
+export async function ensureServer({ page, ...opts } = {}) {
+  const server = await startServer(opts)
+  if (page && page !== true) server.url = new URL(`${String(page).replace(/^\/|\/$/g, '')}/`, server.url).href
+  return server
+}
+
+async function startServer({ url, mode = 'dev', port } = {}) {
   if (url) {
     if (!(await reachable(url))) throw new Error(`No server responding at ${url}`)
     return { url, stop() {} }

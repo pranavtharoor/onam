@@ -33,8 +33,8 @@ const out = args.out ?? join('qa-artifacts', 'capture', stamp())
 const passes = viewports.map((v) => ({ viewport: v, reduced: false }))
 if (args.reduced) passes.push(...viewports.map((v) => ({ viewport: v, reduced: true })))
 
-const server = await ensureServer({ url: args.url, mode: args.preview ? 'preview' : 'dev' })
-const browser = await launch()
+const server = await ensureServer({ page: args.page, url: args.url, mode: args.preview ? 'preview' : 'dev' })
+const browser = await launch({ webgl: !!args.page })
 const report = { url: server.url, createdAt: new Date().toISOString(), passes: [] }
 
 function layoutProbe(isMobile) {

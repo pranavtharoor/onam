@@ -40,8 +40,8 @@ const out = args.out ?? join('qa-artifacts', 'motion', `${stamp()}-${preset}`)
 const framesDir = join(out, 'frames')
 await mkdir(framesDir, { recursive: true })
 
-const server = await ensureServer({ url: args.url, mode: args.preview ? 'preview' : 'dev' })
-const browser = await launch()
+const server = await ensureServer({ page: args.page, url: args.url, mode: args.preview ? 'preview' : 'dev' })
+const browser = await launch({ webgl: !!args.page })
 const { context, page, issues } = await openSite(browser, server.url, preset, { reducedMotion: !!args.reduced, still: true })
 const { scenes, max } = await getScenes(page)
 const vh = VIEWPORTS[preset].viewport.height
