@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import type { SceneDefinition, SceneProps } from '../core/scene/types'
 import { scenes } from '../scenes/registry'
+import { Nadumuttam3D } from './scenes/Nadumuttam3D'
 
 /**
  * The 3D edition's film: the 2D registry (order, entries, skips, grounds all
@@ -10,7 +11,9 @@ import { scenes } from '../scenes/registry'
  * on desktop only; on phones, touch devices, reduced motion or without WebGL it
  * renders exactly the 2D scene. To grow toward a full 3D film, add entries here.
  */
-const variants: Record<string, ComponentType<SceneProps>> = {}
+const variants: Record<string, ComponentType<SceneProps>> = {
+  nadumuttam: Nadumuttam3D, // the brass nilavilakku under the beam
+}
 
 export const scenes3d: SceneDefinition[] = scenes.map((s) => {
   const Component = variants[s.id]

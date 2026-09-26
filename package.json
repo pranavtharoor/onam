@@ -20,7 +20,8 @@
     "assets:svg": "svgo -r -f src/assets/svg --config svgo.config.mjs",
     "assets:video": "bash scripts/assets/encode-video.sh",
     "assets:sequence": "bash scripts/assets/extract-sequence.sh",
-    "assets:og": "node scripts/assets/og-image.mjs"
+    "assets:og": "node scripts/assets/og-image.mjs",
+    "assets:3d": "node scripts/assets/build-3d.mjs"
   },
   "dependencies": {
     "@fontsource/manjari": "^5.3.0",
@@ -34,10 +35,14 @@
   },
   "devDependencies": {
     "@gltf-transform/cli": "^4.5.0",
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.1.1",
+    "meshoptimizer": "^1.3.0",
     "playwright": "1.56.1",
     "sharp": "^0.35.4",
     "svgo": "^4.1.0",

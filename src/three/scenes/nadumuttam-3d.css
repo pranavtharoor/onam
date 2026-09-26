@@ -1,0 +1,8 @@
+/* The WebGL lamp: the lower half of the wall (floor band, lamp, its light on the plaster). */
+.nm-lamp3d {
+  position: absolute; left: 0; top: 50%; width: 100%; height: 50%;
+  pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
+}
+/* Swap the painted lamp for the 3D one only once the 3D one has drawn. */
+[data-lamp='3d'] .nm-lamp3d { opacity: 1; }
+[data-lamp='3d'] .nm-lamp { visibility: hidden; }
