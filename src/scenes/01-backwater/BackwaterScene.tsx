@@ -68,6 +68,8 @@ export function BackwaterScene(props: SceneProps) {
       .to(q('.bw-opening'), { opacity: 0, y: -30, duration: 0.14 }, 0.16)
       // The details tag leaves with the opening; autoAlpha also takes it out of the tab order.
       .to(q('.bw-details'), { autoAlpha: 0, y: 16, duration: 0.1 }, 0.16)
+      // The cue has done its job the moment scrolling starts.
+      .to(q('.bw-cue'), { autoAlpha: 0, duration: 0.04 }, 0)
       .addLabel('umbrella', 0.12)
       .fromTo(q('#bw-olakkuda'), { x: -520 }, { x: 2200, duration: 0.5 }, 0.12)
       // The passing reflection uncovers the line, left to right.
@@ -156,6 +158,12 @@ export function BackwaterScene(props: SceneProps) {
             <p className="bw-neighbours">{copy.backwater.neighbours} <span className="display bw-venue">{event.community}</span>.</p>
           </div>
           <DetailsJump className="bw-details" />
+          {/* Scroll cue: a drop of lamplight running down a thin line, like a ripple coming toward you. */}
+          <p className="bw-cue">
+            <span className="bw-cue-line" aria-hidden="true"><i data-ambient /></span>
+            <span className="bw-cue-label bw-cue-label--pointer">{copy.backwater.cue.pointer}</span>
+            <span className="bw-cue-label bw-cue-label--touch">{copy.backwater.cue.touch}</span>
+          </p>
           <p className="display bw-turn">{copy.backwater.turn}</p>
         </div>
       </div>

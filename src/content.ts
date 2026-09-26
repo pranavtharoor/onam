@@ -32,6 +32,8 @@ export const copy = {
     /** Addressed to the neighbours: the venue is the community the guests live in. */
     neighbours: 'For our neighbours at',
     turn: 'This year, we waited a little longer. For you.',
+    /** Scroll cue in the opening frame: mouse/trackpad vs touch. */
+    cue: { pointer: 'Scroll', touch: 'Swipe up' },
   },
   paddy: {
     line: 'Come the long way. Past the paddy, under the coconut trees.',
