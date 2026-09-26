@@ -15,7 +15,8 @@ changes. The site's Malayalam was proofread by the host's father (2026-09-26);
 any NEW Malayalam string needs the same review — set `MALAYALAM_VERIFIED = false`
 until it has had one.
 If the site URL changes, update the absolute `og:image`/`og:url` in `index.html`
-and regenerate `public/og.jpg` (a 1200×630 capture of the lit beam in the nadumuttam scene).
+`public/og.jpg` (1200×630) is the hosts' portrait poster (`public/invitation-poster.jpg`),
+uncropped and letterboxed on its own sampled cream: `npm run assets:og` rebuilds it.
 
 ## Commands
 

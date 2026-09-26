@@ -18,7 +18,8 @@
     "assets:images": "node scripts/assets/optimize-images.mjs",
     "assets:svg": "svgo -r -f src/assets/svg --config svgo.config.mjs",
     "assets:video": "bash scripts/assets/encode-video.sh",
-    "assets:sequence": "bash scripts/assets/extract-sequence.sh"
+    "assets:sequence": "bash scripts/assets/extract-sequence.sh",
+    "assets:og": "node scripts/assets/og-image.mjs"
   },
   "dependencies": {
     "@fontsource/manjari": "^5.3.0",

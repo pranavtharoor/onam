@@ -131,7 +131,7 @@ export function BackwaterScene(props: SceneProps) {
           <div className="bw-opening">
             <p className="bw-kicker">{copy.backwater.kicker}</p>
             <h1 className="display bw-headline">{copy.backwater.headline}</h1>
-            <p className="bw-neighbours">{copy.backwater.neighbours} <span className="display bw-venue">{event.venue}</span>.</p>
+            <p className="bw-neighbours">{copy.backwater.neighbours} <span className="display bw-venue">{event.community}</span>.</p>
           </div>
           <DetailsJump className="bw-details" />
           <p className="display bw-turn">{copy.backwater.turn}</p>

@@ -14,7 +14,9 @@ export const event = {
   /** ISO start/end in IST, used for the calendar file. */
   startIST: '2026-10-10T11:00:00+05:30',
   endIST: '2026-10-10T15:00:00+05:30',
-  venue: 'Confident Bellatrix',
+  venue: 'Clubhouse, Confident Bellatrix',
+  /** The residential community the guests live in (the hero addresses them by it). */
+  community: 'Confident Bellatrix',
   addressLines: ['Billapura Cross, Sarjapura', 'Bangalore'],
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Confident Bellatrix, Billapura Cross, Sarjapura, Bangalore'),
   food: 'A traditional Onam Sadhya, served on banana leaf. Vegetarian.',

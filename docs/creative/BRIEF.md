@@ -328,6 +328,8 @@ lens flares, no animated blur.
 | 2026-09-26 | Malayalam on the site proofread and approved by the host's father; `MALAYALAM_VERIFIED = true` | Any new Malayalam string needs the same review before shipping |
 | 2026-09-26 | RSVP points to the site itself (new tab) until the Google Form exists | Host request; change `event.rsvpUrl` in `src/content.ts` |
 | 2026-09-26 | Sound removed at the host's request: no toggle, no WebAudio code | The film is silent; supersedes the procedural-sound decision above |
+| 2026-09-26 | Venue is "Clubhouse, Confident Bellatrix" (matches the hosts' poster); the hero still addresses "our neighbours at Confident Bellatrix" (`event.community`) | Maps query stays on the community |
+| 2026-09-26 | Link preview (`og.jpg`) is the hosts' printed poster, whole and uncropped, letterboxed to 1200×630 on its own cream (`npm run assets:og`); original kept at `/invitation-poster.jpg` | Guests recognise the poster; a portrait image would otherwise be centre-cropped, losing date and venue |
 
 ## 12. What we need from the hosts
 

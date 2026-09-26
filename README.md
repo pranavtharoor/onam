@@ -24,7 +24,9 @@ copy, the ten day names, and the Sadhya dishes with their serving order.
   are proofread (`MALAYALAM_VERIFIED = true`); if you add or change one, set it to
   `false` until it has been checked, which marks them `data-verify="malayalam"` in the page.
 - **Link preview:** `index.html` has the WhatsApp/iMessage preview text and an
-  absolute `og:image` URL; update both if the date or URL changes.
+  absolute `og:image` URL; update both if the date or URL changes. The preview image
+  `public/og.jpg` is the hosts' poster (`public/invitation-poster.jpg`) letterboxed to
+  1200×630 on its own cream; after replacing the poster, run `npm run assets:og`.
 
 ## Deploying to GitHub Pages
 
