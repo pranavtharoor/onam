@@ -6,6 +6,7 @@
     repeating-linear-gradient(176deg, transparent 0 46px, rgb(23 19 15 / 0.35) 46px 50px),
     linear-gradient(90deg, #2b1a10, var(--c-wood) 35%, #4a2e1b 60%, #2b1a10);
   border-radius: 40% 40% 0 0 / 4% 4% 0 0;
+  will-change: transform;
 }
 .pp-caption {
   position: absolute; left: var(--gutter); bottom: calc(var(--gutter) * 1.2);

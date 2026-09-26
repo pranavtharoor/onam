@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
@@ -44,13 +45,25 @@ export function BackwaterScene(props: SceneProps) {
       return
     }
     const push = mode === 'desktop' ? 1.45 : 1.3
+    // Camera on the water and the bank. Desktop moves the groups inside their SVGs.
+    // Phones move the whole layer SVGs with CSS transforms instead: composited, so
+    // Safari doesn't re-rasterise the palms every frame. Same picture either way,
+    // because each layer SVG has the same viewBox and box as the one they replaced.
+    const stage = q('.bw-ground')[0] as HTMLElement
+    const fit = () => {
+      const W = stage.clientWidth, H = stage.clientHeight, k = Math.max(W / 1600, H / 1000)
+      return { k, x: (W - 1600 * k) / 2 + LAMP.x * k, y: (H - 1000 * k) / 2 + LAMP.y * k }
+    }
+    const layer = (name: 'bank' | 'water') => (mode === 'desktop' ? q(`#bw-${name}`) : q(`.bw-layer--${name}`))
+    const about = mode === 'desktop' ? { svgOrigin: `${LAMP.x} ${LAMP.y}` } : { transformOrigin: () => { const f = fit(); return `${f.x}px ${f.y}px` } }
+    const drop = mode === 'desktop' ? 1150 : () => 1150 * fit().k
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=230%' : '+=190%', pin: true, scrub: 1 },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=230%' : '+=190%', pin: true, ...pinned(mode), invalidateOnRefresh: true },
     })
     tl.addLabel('push')
-      .to(q('#bw-bank'), { scale: push, svgOrigin: `${LAMP.x} ${LAMP.y}` }, 0)
-      .to(q('#bw-water'), { scale: push * 1.08, svgOrigin: `${LAMP.x} ${LAMP.y}` }, 0)
+      .to(layer('bank'), { scale: push, ...about }, 0)
+      .to(layer('water'), { scale: push * 1.08, ...about }, 0)
       .to(q('#bw-stars'), { scale: 1.08, svgOrigin: `${LAMP.x} ${LAMP.y}` }, 0)
       .to(q('.bw-opening'), { opacity: 0, y: -30, duration: 0.14 }, 0.16)
       // The details tag leaves with the opening; autoAlpha also takes it out of the tab order.
@@ -60,8 +73,8 @@ export function BackwaterScene(props: SceneProps) {
       // The passing reflection uncovers the line, left to right.
       .fromTo(turn, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.26 }, 0.3)
       .addLabel('first-light', 0.64)
-      .to(q('#bw-bank'), { y: 1150, duration: 0.3 }, 0.64)
-      .to(q('#bw-water'), { y: 1150, duration: 0.3 }, 0.64)
+      .to(layer('bank'), { y: drop, duration: 0.3 }, 0.64)
+      .to(layer('water'), { y: drop, duration: 0.3 }, 0.64)
       .to(q('#bw-stars'), { y: 240, opacity: 0, duration: 0.26 }, 0.64)
       .to(turn, { y: () => window.innerHeight * 0.45, opacity: 0, duration: 0.2 }, 0.66)
     // A real dawn ramp (indigo → mauve → peach → first light), not a straight blend through grey.
@@ -86,6 +99,8 @@ export function BackwaterScene(props: SceneProps) {
           <g id="bw-stars" fill="var(--c-lime)">
             {art.stars.map((s, i) => <circle key={i} cx={s.x} cy={s.y} r={s.s} opacity={0.5} />)}
           </g>
+        </svg>
+        <svg className="fill bw-layer bw-layer--water" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g id="bw-water">
             <rect x={-400} y={HORIZON} width={2400} height={900} fill="var(--c-indigo-deep)" />
             <g className="bw-ripples" data-ambient stroke="var(--c-lime)" strokeLinecap="round">
@@ -111,6 +126,8 @@ export function BackwaterScene(props: SceneProps) {
               </g>
             </g>
           </g>
+        </svg>
+        <svg className="fill bw-layer bw-layer--bank" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g id="bw-bank">
             <path d={`M-400,${HORIZON} L-400,${HORIZON - 14} Q300,${HORIZON - 26} 800,${HORIZON - 18} T2000,${HORIZON - 16} L2000,${HORIZON}Z`} fill="var(--c-black)" />
             <path d={`M520,${HORIZON - 20} l40,-34 l40,34 z M1140,${HORIZON - 18} l55,-40 l55,40 z`} fill="var(--c-black)" />

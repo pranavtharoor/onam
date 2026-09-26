@@ -1,5 +1,6 @@
 import { useId, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
@@ -45,7 +46,7 @@ export function YourLeafScene(props: SceneProps) {
     if (mode === 'reduced') return
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=190%' : '+=170%', pin: q('.yl-stage')[0], scrub: 1 },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=190%' : '+=170%', pin: q('.yl-stage')[0], ...pinned(mode) },
     })
     tl.addLabel('sit-down')
       .fromTo(q('.yl-leaf'), { rotation: 180, scale: 0.78 }, { rotation: 0, scale: 1, ease: 'sine.inOut', duration: 0.35 }, 0)

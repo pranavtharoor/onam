@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap, ScrollTrigger } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import { useMotionMode } from '../../core/motion/useMotionMode'
@@ -41,11 +42,12 @@ export function NadumuttamScene(props: SceneProps) {
 
   const drops = useMemo(() => {
     const r = rng(505)
-    return Array.from({ length: mode === 'desktop' ? 110 : 55 }, () => ({ u: r.jitter(1), v: r.jitter(1), t: r.next(), speed: r.range(0.25, 0.5) }))
+    return Array.from({ length: mode === 'desktop' ? 110 : 28 }, () => ({ u: r.jitter(1), v: r.jitter(1), t: r.next(), speed: r.range(0.25, 0.5) }))
   }, [mode])
 
   useCanvasStage(canvas, {
-    maxDpr: 1.5,
+    // Thin streaks of rain: phones draw them at 1× (and half as many), desktop at up to 1.5×.
+    maxDpr: mode === 'desktop' ? 1.5 : 1,
     animate: mode !== 'reduced',
     onResize: () => {
       const svg = root.current?.querySelector<SVGSVGElement>('svg.nm-up')
@@ -105,7 +107,7 @@ export function NadumuttamScene(props: SceneProps) {
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=280%' : '+=240%', pin: true, scrub: 1 },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=280%' : '+=240%', pin: true, ...pinned(mode) },
     })
     tl.addLabel('sky')
       .fromTo(q('.nm-lead'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.05 }, 0.02)

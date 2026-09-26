@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap, ScrollTrigger } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
@@ -83,8 +84,11 @@ export function SadhyaRowScene(props: SceneProps) {
   useScene(root, ({ root, mode, q }) => {
     if (mode === 'reduced') return
     // Iris from the lamp flame, which is fixed on screen while the nadumuttam holds.
+    const stage = q('.row-stage')[0] as HTMLElement
     ScrollTrigger.create({
       trigger: root, start: 'top bottom', end: 'top top', scrub: true,
+      // During the iris only the clip circle changes: keep the hall on its own layer meanwhile.
+      onToggle: (self) => { stage.style.willChange = self.isActive ? 'transform' : '' },
       onUpdate: (self) => {
         const p = self.progress
         const x = innerWidth * FLAME_AT.x
@@ -102,7 +106,7 @@ export function SadhyaRowScene(props: SceneProps) {
       const travel = gsap.to(track, {
         x: () => -distance(), ease: 'none',
         // Slightly faster than 1:1 so the row stays a walk, not a trek.
-        scrollTrigger: { trigger: root, start: 'top top', end: () => `+=${distance() * 0.8}`, pin: true, scrub: 1, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: root, start: 'top top', end: () => `+=${distance() * 0.8}`, pin: true, ...pinned(mode), invalidateOnRefresh: true },
       })
       places.forEach((place) => {
         const fresh = place.querySelectorAll('.dish-new')

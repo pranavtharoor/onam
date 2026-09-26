@@ -26,7 +26,8 @@
 /* Mobile and reduced motion: walk down the row. */
 @media (max-width: 899.98px), (prefers-reduced-motion: reduce) {
   .s-row .scene__stage { height: auto; }
-  .row-track { flex-direction: column; width: 100%; height: auto; }
+  /* The column doesn't move: no layer for it (it would be the height of the whole row). */
+  .row-track { flex-direction: column; width: 100%; height: auto; will-change: auto; }
   .row-place { width: 100%; height: auto; padding-bottom: 2rem; }
   .row-art { height: auto; max-width: 100svh; margin-inline: auto; }
   .row-legend { position: static; padding: 0 var(--gutter); }

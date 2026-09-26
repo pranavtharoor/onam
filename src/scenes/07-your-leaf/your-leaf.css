@@ -12,7 +12,7 @@
 .yl-leaf { position: relative; width: min(88vw, 118svh); aspect-ratio: 1000 / 410; margin-top: -4svh; }
 .yl-far, .yl-near { position: absolute; left: 0; right: 0; height: 50%; }
 .yl-far { top: 0; transform-origin: 50% 100%; transform-style: preserve-3d; z-index: 2; }
-.yl-leaf { perspective: 900px; }
+.yl-leaf { perspective: 900px; will-change: transform; }
 .yl-near { bottom: 0; }
 .yl-face { position: absolute; inset: 0; backface-visibility: hidden; }
 .yl-face--back { transform: rotateX(180deg); }

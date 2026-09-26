@@ -18,6 +18,11 @@
 }
 .bw-ripples { animation: bw-drift 9s linear infinite alternate; }
 @keyframes bw-drift { to { transform: translateX(-40px); } }
+/* Phones move the water and bank as whole layers (see BackwaterScene). */
+@media (max-width: 899.98px) and (prefers-reduced-motion: no-preference) { .bw-layer { will-change: transform; } }
+/* The drift is a transform inside the SVG: on phones it would repaint the whole
+   opening frame 60 times a second while the guest is just reading. */
+@media (pointer: coarse), (max-width: 899.98px) { .bw-ripples { animation: none; } }
 
 @media (max-width: 899.98px) {
   .bw-headline { font-size: var(--step-3); }

@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
@@ -55,16 +56,23 @@ export function PadippuraScene(props: SceneProps) {
     }
 
     // Entry: the wipe follows a coconut trunk crossing the lens, right to left.
+    // The clipped layer's content is static during the wipe: give it its own layer
+    // so each frame only moves the clip edge instead of repainting the gatehouse.
+    const trunk = q('.pp-trunk')[0] as HTMLElement
     gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top bottom', end: 'top top', scrub: true },
+      scrollTrigger: {
+        trigger: root, start: 'top bottom', end: 'top top', scrub: true, invalidateOnRefresh: true,
+        onToggle: (self) => { svg.style.willChange = self.isActive ? 'transform' : '' },
+      },
     })
       .fromTo(q('.pp-reveal'), { clipPath: 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0%)' }, 0)
-      .fromTo(q('.pp-trunk'), { xPercent: 0, left: '100%' }, { left: '0%', xPercent: -100 }, 0)
+      // left: 100% → 0 as a transform (no layout per frame).
+      .fromTo(trunk, { x: 0, xPercent: 0 }, { x: () => -(trunk.offsetParent as HTMLElement | null ?? root).clientWidth, xPercent: -100 }, 0)
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=240%' : '+=200%', pin: true, scrub: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=240%' : '+=200%', pin: true, ...pinned(mode), invalidateOnRefresh: true },
     })
     tl.addLabel('approach')
       .to(q('#pp-house'), { scale: 1.55, svgOrigin: `${ORIGIN.x} ${ORIGIN.y}`, duration: 0.35 }, 0)

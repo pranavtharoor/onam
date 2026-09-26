@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import { useMotionMode } from '../../core/motion/useMotionMode'
@@ -54,10 +55,23 @@ export function PookalamScene(props: SceneProps) {
       .fromTo(days[0]!, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.5)
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=380%' : '+=320%', pin: true, scrub: 1 },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=380%' : '+=320%', pin: true, ...pinned(mode), invalidateOnRefresh: true },
     })
-    tl.fromTo(q('#pk-world'), { scale: mode === 'desktop' ? 3.4 : 2.8, svgOrigin: `${cx} ${cy}` }, { scale: 1, svgOrigin: `${cx} ${cy}`, duration: 0.8 }, 0.02)
-      .fromTo(q('.pk-intro'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.04 }, 0)
+    if (mode === 'desktop') {
+      tl.fromTo(q('#pk-world'), { scale: 3.4, svgOrigin: `${cx} ${cy}` }, { scale: 1, svgOrigin: `${cx} ${cy}`, duration: 0.8 }, 0.02)
+    } else {
+      // Phones: pull back by scaling the whole SVG element (its own composited layer), so
+      // each petal that lands repaints a small patch instead of Safari re-rasterising
+      // every petal on every frame. Scaled about the courtyard centre on screen: the
+      // same picture as scaling #pk-world inside the SVG (viewBox 400 120 800 800, meet).
+      const art = q('svg.pk-art')[0] as SVGSVGElement
+      const origin = () => {
+        const W = art.parentElement!.clientWidth, H = art.parentElement!.clientHeight, k = Math.min(W / 800, H / 800)
+        return `${(W - 800 * k) / 2 + (cx - 400) * k}px ${(H - 800 * k) / 2 + (cy - 120) * k}px`
+      }
+      tl.fromTo(art, { scale: 2.8, transformOrigin: origin }, { scale: 1, transformOrigin: origin, duration: 0.8 }, 0.02)
+    }
+    tl.fromTo(q('.pk-intro'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.04 }, 0)
       .to(q('.pk-intro'), { autoAlpha: 0, duration: 0.04 }, 0.3)
     RINGS.forEach((_, i) => {
       const t = 0.05 + (i - 1) * seg
@@ -83,7 +97,7 @@ export function PookalamScene(props: SceneProps) {
   return (
     <Scene ref={root} {...props} className="s-pookalam">
       <div className="scene__stage">
-        <svg className="fill" {...vb} aria-hidden="true">
+        <svg className="fill pk-art" {...vb} aria-hidden="true">
           <PetalDefs />
           <g id="pk-world">
             <rect x={-2000} y={-2000} width={5600} height={5600} fill="var(--c-earth)" />

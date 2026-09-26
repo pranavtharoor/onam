@@ -2,6 +2,8 @@
 .nm-reveal { overflow: hidden; clip-path: circle(0 at 50% 50%); }
 @media (prefers-reduced-motion: reduce) { .nm-reveal { clip-path: none; } }
 .nm-upview { background: var(--c-tile); }
+/* Both halves of the tilt-down move every frame: keep them on their own layers. */
+.nm-upview, .nm-wall { will-change: transform; }
 .nm-lead {
   position: absolute; left: var(--gutter); top: var(--top-safe); max-width: 19ch;
   font-size: var(--step-1); line-height: 1.25;

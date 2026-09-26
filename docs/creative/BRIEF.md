@@ -330,6 +330,7 @@ lens flares, no animated blur.
 | 2026-09-26 | Sound removed at the host's request: no toggle, no WebAudio code | The film is silent; supersedes the procedural-sound decision above |
 | 2026-09-26 | Venue is "Clubhouse, Confident Bellatrix" (matches the hosts' poster); the hero still addresses "our neighbours at Confident Bellatrix" (`event.community`) | Maps query stays on the community |
 | 2026-09-26 | Link preview (`og.jpg`) is the hosts' printed poster, whole and uncropped, letterboxed to 1200×630 on its own cream (`npm run assets:og`); original kept at `/invitation-poster.jpg` | Guests recognise the poster; a portrait image would otherwise be centre-cropped, losing date and venue |
+| 2026-09-26 | iPhone performance pass. Phones and touch devices: the grain is static, viewport-sized and not blend-moded (opacity 0.045); the backwater ripples don't drift. The backwater camera and the pookalam pull-back move whole composited SVG layers; the rain is drawn at 1× with half the drops; pinned scenes scrub at 0.6 (desktop 1) with `anticipatePin` | A moving full-screen `mix-blend-mode` layer and transforms inside SVGs make iOS Safari re-composite or re-rasterise the page every frame. Headless mobile at 4× CPU: frames over 33ms 7% → 2–3%, p99 50 → 33.4ms; idle repaint on the opening frame gone |
 
 ## 12. What we need from the hosts
 

@@ -23,6 +23,15 @@ export function modeFromConditions(c: MotionConditions): MotionMode {
   return c.desktop ? 'desktop' : 'mobile'
 }
 
+/**
+ * Pinned-timeline settings per mode. Phones scrub with less smoothing so the
+ * work stops soon after the finger does; anticipatePin avoids the one-frame
+ * jump as a pin engages on iOS.
+ */
+export function pinned(mode: MotionMode) {
+  return { scrub: mode === 'desktop' ? 1 : 0.6, anticipatePin: 1 } as const
+}
+
 export function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined' && window.matchMedia(MOTION_CONDITIONS.reduced).matches
 }

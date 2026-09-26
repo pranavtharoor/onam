@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
+import { pinned } from '../../core/motion/media'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
@@ -54,7 +55,7 @@ export function PaddyScene(props: SceneProps) {
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=320%' : '+=260%', pin: true, scrub: 1, invalidateOnRefresh: true },
+      scrollTrigger: { trigger: root, start: 'top top', end: mode === 'desktop' ? '+=320%' : '+=260%', pin: true, ...pinned(mode), invalidateOnRefresh: true },
     })
     tl.addLabel('crane')
     for (const k of Object.keys(DEPTH) as (keyof typeof DEPTH)[]) {
