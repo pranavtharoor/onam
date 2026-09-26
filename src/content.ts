@@ -27,6 +27,8 @@ export const copy = {
   backwater: {
     kicker: 'Onam came and went.',
     headline: 'Every year, Kerala waits for one guest.',
+    /** Addressed to the neighbours: the venue is the community the guests live in. */
+    neighbours: 'For our neighbours at',
     turn: 'This year, we waited a little longer. For you.',
   },
   paddy: {

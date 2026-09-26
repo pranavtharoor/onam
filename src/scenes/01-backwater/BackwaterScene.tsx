@@ -5,7 +5,7 @@ import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
 import { CoconutTree } from '../../art/CoconutTree'
 import { rng } from '../../art/random'
-import { copy } from '../../content'
+import { copy, event } from '../../content'
 import { DetailsJump } from '../../components/DetailsJump'
 import './backwater.css'
 
@@ -131,6 +131,7 @@ export function BackwaterScene(props: SceneProps) {
           <div className="bw-opening">
             <p className="bw-kicker">{copy.backwater.kicker}</p>
             <h1 className="display bw-headline">{copy.backwater.headline}</h1>
+            <p className="bw-neighbours">{copy.backwater.neighbours} <span className="display bw-venue">{event.venue}</span>.</p>
           </div>
           <DetailsJump className="bw-details" />
           <p className="display bw-turn">{copy.backwater.turn}</p>
