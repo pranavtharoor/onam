@@ -30,7 +30,7 @@ export const copy = {
     turn: 'This year, we waited a little longer. For you.',
   },
   paddy: {
-    line: 'Come the long way. Past the paddy, under the palms.',
+    line: 'Come the long way. Past the paddy, under the coconut trees.',
   },
   padippura: {
     lintel: { ml: 'സ്വാഗതം', roman: 'swaagatham', en: 'welcome' },

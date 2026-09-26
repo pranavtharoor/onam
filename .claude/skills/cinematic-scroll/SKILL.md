@@ -75,7 +75,7 @@ Translate every idea into camera language before writing tweens:
 | **Crane / tilt** | vertical translation with the sky/far layers moving least; good for arriving (sky → courtyard). |
 | **Fly-through** | scale an opening (doorway, gatehouse, leaf gap) past the viewport so its interior becomes the next scene — the best scene transition we have. |
 | **Rack focus** | cross-fade a pre-blurred and a sharp copy of a layer (never animate `filter: blur` on large layers). |
-| **Reveal by occlusion** | a foreground element (leaf, pillar, palm trunk) passes the lens and uncovers the next state. |
+| **Reveal by occlusion** | a foreground element (leaf, pillar, coconut trunk) passes the lens and uncovers the next state. |
 | **Hold** | a deliberate beat of scroll where the frame rests (~0.3–0.6 viewport). Holds make arrivals land; without them everything feels rushed. |
 | **Match cut** | the last shape of one scene becomes the first of the next (pookalam ring → rim of the leaf → rim of the uruli). |
 

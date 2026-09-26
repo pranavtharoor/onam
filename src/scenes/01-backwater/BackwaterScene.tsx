@@ -3,7 +3,7 @@ import { gsap } from '../../core/motion/gsap'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
-import { Palm } from '../../art/Palm'
+import { CoconutTree } from '../../art/CoconutTree'
 import { rng } from '../../art/random'
 import { copy } from '../../content'
 import './backwater.css'
@@ -114,7 +114,7 @@ export function BackwaterScene(props: SceneProps) {
             {[
               { x: 120, h: 300, lean: 30, seed: 3 }, { x: 330, h: 240, lean: -20, seed: 5 }, { x: 640, h: 330, lean: 45, seed: 8 },
               { x: 1010, h: 260, lean: -35, seed: 13 }, { x: 1300, h: 340, lean: 25, seed: 21 }, { x: 1500, h: 250, lean: -15, seed: 34 },
-            ].map((p) => <Palm key={p.seed} x={p.x} y={HORIZON - 12} height={p.h} lean={p.lean} seed={p.seed} crown="var(--c-black)" silhouette />)}
+            ].map((p) => <CoconutTree key={p.seed} x={p.x} y={HORIZON - 12} height={p.h} lean={p.lean} seed={p.seed} crown="var(--c-black)" silhouette />)}
             {/* Nilavilakku on the far bank */}
             <g transform={`translate(${LAMP.x} ${LAMP.y})`}>
               <circle r={34} fill="var(--c-yellow-ochre)" opacity={0.18} />

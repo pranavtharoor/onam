@@ -3,7 +3,7 @@ import { gsap } from '../../core/motion/gsap'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
 import type { SceneProps } from '../../core/scene/types'
-import { Palm } from '../../art/Palm'
+import { CoconutTree } from '../../art/CoconutTree'
 import { rng, blobPath } from '../../art/random'
 import { copy } from '../../content'
 import './paddy.css'
@@ -16,7 +16,7 @@ const HORIZON = 520
 const DEPTH = { far: 0.3, mid: 0.65, near: 1, fore: 1.45 } as const
 
 /**
- * Dawn over paddy and palms. Crane down from the sky (the frame the backwater
+ * Dawn over paddy and coconut trees. Crane down from the sky (the frame the backwater
  * scene ended on), then truck right along the bund. Holds its last frame for
  * one viewport: the gatehouse wipes in over it.
  */
@@ -25,7 +25,7 @@ export function PaddyScene(props: SceneProps) {
 
   const art = useMemo(() => {
     const r = rng(207)
-    const farPalms = Array.from({ length: 34 }, (_, i) => ({ x: i * 72 + r.jitter(24), h: r.range(120, 200), lean: r.jitter(30), seed: 400 + i }))
+    const farTrees = Array.from({ length: 34 }, (_, i) => ({ x: i * 72 + r.jitter(24), h: r.range(120, 200), lean: r.jitter(30), seed: 400 + i }))
     const fields = Array.from({ length: 7 }, (_, i) => {
       const y0 = HORIZON + 14 + Math.pow(i / 7, 1.5) * 250
       const y1 = HORIZON + 14 + Math.pow((i + 1) / 7, 1.5) * 250
@@ -37,12 +37,12 @@ export function PaddyScene(props: SceneProps) {
       return { x: r.range(0, W), y, h: 3 + d * 12 }
     })
     const egrets = Array.from({ length: 7 }, () => ({ x: r.range(150, W - 150), y: r.range(HORIZON + 60, HORIZON + 220), s: r.range(0.7, 1.2), flip: r.next() > 0.5 }))
-    const nearPalms = [
+    const nearTrees = [
       { x: 140, h: 560, lean: 60, seed: 71 }, { x: 1120, h: 500, lean: -60, seed: 72 }, { x: 1560, h: 580, lean: 80, seed: 73 },
       { x: 2280, h: 540, lean: -40, seed: 75 },
     ]
     const tufts = Array.from({ length: 60 }, () => ({ x: r.range(0, W), y: r.range(880, 1000), s: r.range(0.6, 1.4), seed: Math.floor(r.range(0, 1e6)) }))
-    return { farPalms, fields, stalks, egrets, nearPalms, tufts, r }
+    return { farTrees, fields, stalks, egrets, nearTrees, tufts, r }
   }, [])
 
   useScene(root, ({ root, mode, q }) => {
@@ -82,7 +82,7 @@ export function PaddyScene(props: SceneProps) {
         </svg>
 
         <svg className="plane pd-far" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
-          {art.farPalms.map((p) => <Palm key={p.seed} x={p.x} y={HORIZON + 10} height={p.h} lean={p.lean} seed={p.seed} crown="#2b5541" silhouette />)}
+          {art.farTrees.map((p) => <CoconutTree key={p.seed} x={p.x} y={HORIZON + 10} height={p.h} lean={p.lean} seed={p.seed} crown="#2b5541" silhouette />)}
           <rect x={0} y={HORIZON + 4} width={W} height={20} fill="#2b5541" />
         </svg>
 
@@ -111,17 +111,16 @@ export function PaddyScene(props: SceneProps) {
           <path d={`M0,${H} L0,820 C400,800 700,760 1100,770 C1500,780 1900,740 ${W},720 L${W},${H}Z`} fill="var(--c-leaf-dark)" />
           <path d={`M0,${H} C300,930 700,880 1200,860 C1700,840 2100,820 ${W},800 L${W},860 C2100,880 1700,900 1200,920 C800,940 400,980 200,${H}Z`} fill="var(--c-laterite)" />
           <path d={`M0,${H} C300,935 700,885 1200,866 C1700,846 2100,826 ${W},806`} stroke="var(--c-black)" strokeWidth={2} fill="none" opacity={0.35} />
-          {art.nearPalms.map((p) => <Palm key={p.seed} x={p.x} y={840} height={p.h} lean={p.lean} seed={p.seed} crown="var(--c-leaf-dark)" />)}
+          {art.nearTrees.map((p) => <CoconutTree key={p.seed} x={p.x} y={840} height={p.h} lean={p.lean} seed={p.seed} crown="var(--c-leaf-dark)" />)}
           {art.tufts.map((t, i) => <path key={i} d={blobPath(t.x, t.y, 26 * t.s, 10 * t.s, rng(t.seed), 0.3)} fill="#2f5e2c" />)}
         </svg>
 
-        <svg className="plane pd-fore" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
-          {[700, 1750, 2330].map((x, i) => (
-            <path key={x} d={`M${x - 55},${H + 20} C${x - 40},600 ${x - 20 + i * 10},200 ${x - 10},-40 L${x + 40},-40 C${x + 30 + i * 10},200 ${x + 40},600 ${x + 60},${H + 20}Z`} fill="var(--c-wood)" />
+        <svg className="plane pd-fore" viewBox={`0 0 ${W} ${H}`} overflow="visible" aria-hidden="true">
+          {/* Close-up coconut trees passing the lens. Their crowns sit at the top of the
+              frame, so they are visible during the crane down — never a headless trunk. */}
+          {[{ x: 700, lean: 40, seed: 91 }, { x: 1750, lean: -50, seed: 92 }, { x: 2330, lean: 30, seed: 93 }].map((t) => (
+            <CoconutTree key={t.seed} x={t.x} y={H + 40} height={1180} lean={t.lean} seed={t.seed} crown="var(--c-leaf-dark)" />
           ))}
-          <g stroke="var(--c-black)" strokeWidth={3} opacity={0.4}>
-            {[700, 1750, 2330].flatMap((x) => Array.from({ length: 18 }, (_, k) => <line key={`${x}-${k}`} x1={x - 50} x2={x + 55} y1={k * 60 - 20} y2={k * 60 - 12} />))}
-          </g>
         </svg>
 
         <p className="pd-line display">{copy.paddy.line}</p>

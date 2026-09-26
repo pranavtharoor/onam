@@ -1,6 +1,6 @@
 import { rng, fmt as f } from './random'
 
-interface PalmProps {
+interface CoconutTreeProps {
   x: number
   /** ground y */
   y: number
@@ -11,16 +11,16 @@ interface PalmProps {
   trunk?: string
   crown?: string
   line?: string
-  /** silhouette palms (far planes) skip line work */
+  /** silhouette trees (far planes) skip line work */
   silhouette?: boolean
 }
 
 /**
- * A coconut palm: tapered, slightly curved trunk with growth rings, and a crown
+ * A coconut tree: tapered, slightly curved trunk with growth rings, and a crown
  * of arching fronds whose leaflets droop and thin toward the tip. Drawn as
  * filled shapes (brush-like), not uniform strokes.
  */
-export function Palm({ x, y, height, lean, seed, trunk = 'var(--c-wood)', crown = 'var(--c-verdigris)', line = 'var(--c-black)', silhouette }: PalmProps) {
+export function CoconutTree({ x, y, height, lean, seed, trunk = 'var(--c-wood)', crown = 'var(--c-verdigris)', line = 'var(--c-black)', silhouette }: CoconutTreeProps) {
   const r = rng(seed)
   const topX = x + lean
   const topY = y - height

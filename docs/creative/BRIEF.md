@@ -100,7 +100,7 @@ landscape and architecture.
 **Concept.** Every Onam, Kerala gets ready for one guest: Mahabali, returning
 for a day to the people he loved. **This year, that guest is you.** The camera
 is the returning guest, travelling from the edge of the land at pre-dawn, through
-paddy and palms, through the gatehouse of a house, past the pookalam, through the
+paddy and coconut trees, through the gatehouse of a house, past the pookalam, through the
 open courtyard, to a row of banana leaves where one place is still empty.
 Mahabali is never drawn: the only trace is the **shadow of a palm-leaf umbrella
 (*olakkuda*)** on the water in the first frame.
@@ -130,10 +130,10 @@ mural-line figures, never realistic.
 
 **Animation language.** True camera moves: crane, truck, and **fly-throughs**
 of openings (gatehouse door, courtyard sky) as the scene transitions; foreground
-occluders (palm trunks, pillars) wiping the frame; holds on arrivals.
+occluders (coconut trunks, pillars) wiping the frame; holds on arrivals.
 
 **Scroll narrative.** Backwater before dawn (umbrella shadow) → dawn over paddy
-and palms → the gatehouse (fly-through) → the pookalam (grows as you approach:
+and coconut trees → the gatehouse (fly-through) → the pookalam (grows as you approach:
 ten days compressed into ten steps) → the courtyard open to sky (invitation
 painted on the beam) → the dining hall row (leaves fill in serving order as you
 pass) → the empty leaf with your name.
@@ -241,7 +241,7 @@ Weak ideas found and what replaced them:
 Open questions for the critique to keep asking: does the umbrella shadow read to
 non-Malayali guests (answer: the copy carries it; for Malayalis it's a gift)?
 Is B's art budget realistic (answer: planes are few, procedural where possible —
-palms, paddy, pookalam, leaf rows are generated; only the gatehouse, courtyard and
+coconut trees, paddy, pookalam, leaf rows are generated; only the gatehouse, courtyard and
 hall need bespoke drawing)?
 
 ## 5. Recommendation
@@ -263,7 +263,7 @@ Budget ≈ 22 vh desktop / 17 vh mobile. "vh" = viewport heights of scroll.
 | # | Scene (id) | Beat | Camera | Medium | Out-transition → | Mobile | Reduced motion |
 |---|---|---|---|---|---|---|---|
 | 1 | `backwater` 2.5 vh | Pre-dawn water; one lamp on the far bank; the olakkuda shadow slides across the water. Line: "Every year, Kerala waits for one guest." | Slow push toward the lamp; water reflections parallax | SVG planes + canvas water shimmer (subtle) | Dawn light change: the sky ground warms into scene 2 (no cut) | Portrait crop centred on the lamp; fewer water planes | Still: lamp, shadow, line |
-| 2 | `paddy` 3 vh | Dawn over paddy and palms; path along the bund | Crane down a palm trunk, then truck right along the bund; palm trunks as foreground occluders | SVG procedural palms/paddy, 5 depth planes | Occlusion wipe: a palm trunk passes the lens and reveals the gatehouse | Vertical descent instead of truck; 3 planes | Still: path and gatehouse in distance |
+| 2 | `paddy` 3 vh | Dawn over paddy and coconut trees; path along the bund | Crane down a coconut trunk, then truck right along the bund; coconut trunks as foreground occluders | SVG procedural coconut trees/paddy, 5 depth planes | Occlusion wipe: a coconut trunk passes the lens and reveals the gatehouse | Vertical descent instead of truck; 3 planes | Still: path and gatehouse in distance |
 | 3 | `padippura` 2 vh | The gatehouse; painted lettering on its lintel: the family name | Push in; the doorway grows until it fills the frame (fly-through) | SVG + mask | Fly-through: doorway becomes the frame of scene 4 | Same move (it's vertical-friendly) | Still: gatehouse with lettering |
 | 4 | `pookalam` 3.5 vh | The courtyard; the pookalam grows one ring per step as you walk toward it (Atham → Thiruvonam); sandals multiply at the verandah step | Slow approach + slight crane up to reveal the whole circle | Procedural SVG + canvas for petals being placed | Match cut: the outer ring becomes the square of sky above the nadumuttam (circle → square mask) | Overhead-leaning composition; fewer petals per ring | Complete pookalam, day names listed |
 | 5 | `nadumuttam` 2.5 vh | Inside, the courtyard open to sky; last night's rain drips from the eaves; **the invitation is painted on the beam**: date, time, place | Tilt up to the sky square, hold, tilt down to the beam text | SVG + canvas rain | Iris from the sky square down into the hall (per-mode overlap) | Tilt only; text recomposed to portrait | Still: beam with the invitation text |

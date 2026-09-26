@@ -60,7 +60,7 @@ src/
   core/atmosphere/           Grain
   scenes/registry.ts         THE ORDER OF THE FILM — add/remove/reorder scenes here
   scenes/<nn-id>/            one folder per scene (component, css); scenes/shared/ for cross-scene geometry
-  art/                       procedural illustration: palms, banana plant, pookalam, leaf + dishes, nilavilakku
+  art/                       procedural illustration: coconut trees, banana plant, pookalam, leaf + dishes, nilavilakku
   components/                Chrome (details jump + sound toggle), Ml (Malayalam with data-verify)
   content.ts                 EVERY WORD ON THE SITE + event facts + the Sadhya (serving order, leaf positions)
   lib/calendar.ts            .ics data URL + RSVP link

@@ -99,7 +99,7 @@ against a primary source or a Malayali reader. Malayalam strings here are marked
 
 ## Landscape
 
-Coconut palms (*thengu*) with arching fronds; paddy fields (*vayal*, *padam*)
+Coconut trees (*thengu*) with arching fronds; paddy fields (*vayal*, *padam*)
 in bright wet green; backwaters (*kayal*) with still reflective water, Chinese
 fishing nets in Kochi; laterite red earth; monsoon-heavy clouds clearing to Chingam sun.
 

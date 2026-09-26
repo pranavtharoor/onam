@@ -13,7 +13,7 @@ import { YourLeafScene } from './07-your-leaf/YourLeafScene'
  */
 export const scenes: SceneDefinition[] = [
   { id: 'backwater', title: 'Backwater before dawn', Component: BackwaterScene, ground: 'var(--c-indigo-deep)' },
-  { id: 'paddy', title: 'Dawn over paddy and palms', Component: PaddyScene, ground: 'var(--c-dawn)' },
+  { id: 'paddy', title: 'Dawn over paddy and coconut trees', Component: PaddyScene, ground: 'var(--c-dawn)' },
   { id: 'padippura', title: 'The gatehouse', Component: PadippuraScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },
   { id: 'pookalam', title: 'Ten mornings of the pookalam', Component: PookalamScene, ground: 'var(--c-earth)' },
   { id: 'nadumuttam', title: 'The courtyard open to the sky', Component: NadumuttamScene, entry: { desktop: 'overlap', mobile: 'overlap', reduced: 'cut' } },

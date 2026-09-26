@@ -15,7 +15,7 @@ const EARTH = { x: DOOR.x, y: DOOR.y + 70, w: DOOR.w, h: DOOR.h - 70 }
 const ORIGIN = { x: EARTH.x + EARTH.w / 2, y: EARTH.y + EARTH.h / 2 }
 
 /**
- * The gatehouse. Enters by a palm-trunk occlusion wipe over the paddy's held
+ * The gatehouse. Enters by a coconut-trunk occlusion wipe over the paddy's held
  * frame; the camera then walks up to the lintel (സ്വാഗതം, "welcome") and flies
  * through the doorway until the courtyard's earth fills the frame — the first
  * frame of the pookalam scene.
@@ -54,7 +54,7 @@ export function PadippuraScene(props: SceneProps) {
       return Math.max(Math.max(px, innerWidth - px) / halfW, Math.max(py, innerHeight - py) / halfH, clearTop) * 1.06
     }
 
-    // Entry: the wipe follows a palm trunk crossing the lens, right to left.
+    // Entry: the wipe follows a coconut trunk crossing the lens, right to left.
     gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: { trigger: root, start: 'top bottom', end: 'top top', scrub: true },
