@@ -6,6 +6,7 @@ import type { SceneProps } from '../../core/scene/types'
 import { CoconutTree } from '../../art/CoconutTree'
 import { rng } from '../../art/random'
 import { copy } from '../../content'
+import { DetailsJump } from '../../components/DetailsJump'
 import './backwater.css'
 
 const LAMP = { x: 860, y: 548 }
@@ -52,6 +53,8 @@ export function BackwaterScene(props: SceneProps) {
       .to(q('#bw-water'), { scale: push * 1.08, svgOrigin: `${LAMP.x} ${LAMP.y}` }, 0)
       .to(q('#bw-stars'), { scale: 1.08, svgOrigin: `${LAMP.x} ${LAMP.y}` }, 0)
       .to(q('.bw-opening'), { opacity: 0, y: -30, duration: 0.14 }, 0.16)
+      // The details tag leaves with the opening; autoAlpha also takes it out of the tab order.
+      .to(q('.bw-details'), { autoAlpha: 0, y: 16, duration: 0.1 }, 0.16)
       .addLabel('umbrella', 0.12)
       .fromTo(q('#bw-olakkuda'), { x: -520 }, { x: 2200, duration: 0.5 }, 0.12)
       // The passing reflection uncovers the line, left to right.
@@ -129,6 +132,7 @@ export function BackwaterScene(props: SceneProps) {
             <p className="bw-kicker">{copy.backwater.kicker}</p>
             <h1 className="display bw-headline">{copy.backwater.headline}</h1>
           </div>
+          <DetailsJump className="bw-details" />
           <p className="display bw-turn">{copy.backwater.turn}</p>
         </div>
       </div>

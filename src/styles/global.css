@@ -73,17 +73,19 @@ html.lenis, html.lenis body { height: auto; }
   .layer { will-change: auto; }
 }
 
-/* Persistent chrome: small, quiet, always legible over any scene. */
-.chrome {
-  position: fixed; inset: 0 0 auto 0; z-index: var(--z-chrome); pointer-events: none;
-  display: flex; justify-content: space-between; padding: max(0.6rem, env(safe-area-inset-top)) 0.75rem 0;
-}
-.chrome-btn {
-  pointer-events: auto; min-height: 44px; padding: 0 0.9rem; display: inline-flex; align-items: center;
-  font-size: var(--step--1); color: var(--c-lime); background: rgb(23 19 15 / 0.55);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: 2px;
-}
-.chrome-btn:hover { background: rgb(23 19 15 / 0.75); }
 .yl-card-title:focus { outline: none; }
-.chrome-details { transition: opacity 0.3s var(--ease-breath); }
-.chrome-details.is-hidden { opacity: 0; pointer-events: none; }
+
+/* Invitation-details tag: a painted signboard chit in yellow ochre, lamp-black
+   display type, red-ochre offset like the RSVP board on the card. */
+.details-jump {
+  pointer-events: auto; display: inline-grid; justify-items: start; gap: 0.05rem;
+  min-height: 48px; padding: 0.55rem 1.1rem 0.5rem; text-align: left;
+  background: var(--c-yellow-ochre); color: var(--c-black);
+  box-shadow: 4px 4px 0 var(--c-red-ochre);
+  transition: transform 0.2s var(--ease-settle), box-shadow 0.2s var(--ease-settle);
+}
+.details-jump:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--c-red-ochre); }
+.details-jump:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--c-red-ochre); }
+.details-jump:focus-visible { outline: 2px solid var(--c-dawn-pale); outline-offset: 4px; }
+.details-jump__label { font-family: var(--font-display); font-size: var(--step-0); line-height: 1.15; }
+.details-jump__date { font-size: var(--step--1); line-height: 1.2; letter-spacing: 0.02em; }

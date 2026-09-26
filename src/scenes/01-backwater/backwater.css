@@ -4,6 +4,9 @@
   display: grid; grid-template-rows: 1fr auto; padding: var(--top-safe) var(--gutter) var(--gutter);
 }
 .bw-opening { align-self: start; width: min(100%, 62rem); }
+/* In motion the tag leaves before the turn line is uncovered, so they share a cell. */
+.bw-details, .bw-turn { grid-row: 2; grid-column: 1; }
+.bw-details { justify-self: end; align-self: end; margin: 0 4px 4svh 0; }
 .bw-kicker { font-size: var(--step-1); color: var(--c-dawn); margin-bottom: 0.6em; }
 .bw-headline { font-size: var(--step-4); color: var(--c-lime); max-width: 11ch; }
 .bw-turn {
@@ -17,8 +20,18 @@
 @media (max-width: 899.98px) {
   .bw-headline { font-size: var(--step-3); }
   .bw-turn { font-size: var(--step-2); max-width: 13ch; margin-bottom: 8svh; }
+  .bw-details { margin-bottom: 8svh; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bw-turn { clip-path: none; }
+  /* The still film shows both at once: the tag sits above the turn line… */
+  .bw-copy { grid-template-rows: 1fr auto auto; }
+  .bw-details { margin-bottom: 1.2rem; }
+  .bw-turn { grid-row: 3; clip-path: none; }
   .bw-ripples { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-height: 520px) {
+  /* …or, on short landscape screens, beside it at bottom-left. */
+  .bw-copy { grid-template-rows: 1fr auto; }
+  .bw-details { justify-self: start; margin-bottom: 8svh; }
+  .bw-turn { grid-row: 2; }
 }

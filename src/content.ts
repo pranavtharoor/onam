@@ -79,8 +79,9 @@ export const copy = {
     calendar: 'Add to calendar',
     signoff: { ml: 'ഓണാശംസകൾ', roman: 'Onashamsakal', en: 'Happy Onam, a little late.' },
   },
-  chrome: {
-    details: 'Invitation details',
+  details: {
+    label: 'Invitation details',
+    date: 'Sat, 10 October · 11 am',
   },
 }
 

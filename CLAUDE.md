@@ -60,7 +60,7 @@ src/
   scenes/registry.ts         THE ORDER OF THE FILM — add/remove/reorder scenes here
   scenes/<nn-id>/            one folder per scene (component, css); scenes/shared/ for cross-scene geometry
   art/                       procedural illustration: coconut trees, banana plant, pookalam, leaf + dishes, nilavilakku
-  components/                Chrome (details jump), Ml (Malayalam with data-verify)
+  components/                DetailsJump (opening-frame tag → invitation card), Ml (Malayalam with data-verify)
   content.ts                 EVERY WORD ON THE SITE + event facts + the Sadhya (serving order, leaf positions)
   lib/calendar.ts            .ics data URL + RSVP link
   styles/                    reset, tokens (material-named design tokens), global
