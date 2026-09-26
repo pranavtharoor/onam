@@ -13,7 +13,6 @@
 .yl-far, .yl-near { position: absolute; left: 0; right: 0; height: 50%; }
 .yl-far { top: 0; transform-origin: 50% 100%; transform-style: preserve-3d; z-index: 2; }
 .yl-leaf { perspective: 900px; }
-.yl-near::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(23 19 15 / 0.55), transparent 70%); opacity: var(--fold-shade, 0); pointer-events: none; clip-path: inset(0 0 0 0); }
 .yl-near { bottom: 0; }
 .yl-face { position: absolute; inset: 0; backface-visibility: hidden; }
 .yl-face--back { transform: rotateX(180deg); }

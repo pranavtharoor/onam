@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useId, useRef } from 'react'
 import { gsap } from '../../core/motion/gsap'
 import { Scene } from '../../core/scene/Scene'
 import { useScene } from '../../core/scene/useScene'
@@ -11,9 +11,23 @@ import './your-leaf.css'
 
 /** The leaf split at its middle so the far half can fold towards the diner. */
 function LeafHalf({ part }: { part: 'far' | 'near' }) {
+  const id = useId()
   return (
     <svg className={`yl-half-art yl-half-art--${part}`} viewBox={part === 'far' ? '0 0 1000 205' : '0 205 1000 205'} preserveAspectRatio="none" aria-hidden="true">
       <LeafShape seed={77} />
+      {part === 'near' && (
+        // The fold's shadow: darkest at the fold line, fading toward the diner, and only on the leaf.
+        <g className="yl-fold-shade" style={{ opacity: 'var(--fold-shade, 0)' }}>
+          <defs>
+            <clipPath id={`${id}-clip`}><path d={LEAF_PATH} /></clipPath>
+            <linearGradient id={`${id}-shade`} x1="0" y1="205" x2="0" y2="349" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#17130f" stopOpacity={0.55} />
+              <stop offset="1" stopColor="#17130f" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <rect x={0} y={205} width={1000} height={205} fill={`url(#${id}-shade)`} clipPath={`url(#${id}-clip)`} />
+        </g>
+      )}
     </svg>
   )
 }
