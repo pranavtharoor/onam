@@ -7,7 +7,8 @@ never a landing page, template, card grid or "AI-looking" page.
 **Current phase: Direction B ("Maveli Comes Home") is built** — seven scenes in
 `src/scenes/01-…07-*`. Read `docs/creative/BRIEF.md` (§6 storyboard, §11 decision
 log) before changing anything. All words live in `src/content.ts`. Hosted on
-GitHub Pages via `.github/workflows/deploy.yml` (deploys on push to `main`).
+GitHub Pages: `.github/workflows/deploy.yml` builds on push to `main` and publishes
+`dist/` to the `gh-pages` branch (served at https://pranavtharoor.github.io/onam/).
 
 Pending from the hosts: the Google Form URL (`event.rsvpUrl`) and any date/venue
 changes. The site's Malayalam was proofread by the host's father (2026-09-26);

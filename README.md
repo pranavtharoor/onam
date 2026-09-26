@@ -28,9 +28,10 @@ copy, the ten day names, and the Sadhya dishes with their serving order.
 
 ## Deploying to GitHub Pages
 
-1. In the repo on GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. Merge to `main`. `.github/workflows/deploy.yml` builds and publishes to
-   `https://pranavtharoor.github.io/onam/`.
+Push (or merge) to `main`. `.github/workflows/deploy.yml` builds the site and
+publishes `dist/` to the `gh-pages` branch, which GitHub Pages serves at
+`https://pranavtharoor.github.io/onam/` (Settings → Pages → Source: *Deploy from a
+branch*, `gh-pages` / root). Changes are live a minute or two after the push.
 
 The build uses a relative base, so it also works on any other static host.
 
