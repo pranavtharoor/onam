@@ -47,10 +47,15 @@ for (const vp of viewports) {
     const name = `${vp}-${String(Math.round(at * 100)).padStart(3, '0')}`
     const file = join(out, `${name}.png`)
     await page.screenshot({ path: file })
-    const cw = Math.round(width * 0.22), ch = Math.round(height * 0.34)
-    const left = Math.max(0, Math.min(width - cw, Math.round(width * fx - cw / 2)))
-    const top = Math.max(0, Math.min(height - ch, Math.round(height * fy - ch * 0.45)))
-    await sharp(file).extract({ left, top, width: cw, height: ch }).resize(cw * 3, ch * 3, { kernel: 'lanczos3' }).toFile(join(out, `${name}-zoom.png`))
+    // Crop in image pixels (phones are captured at deviceScaleFactor 2).
+    const k = (await sharp(file).metadata()).width / width
+    const portrait = height > width
+    const cw = Math.round(width * (portrait ? 0.6 : 0.22) * k), ch = Math.round(height * 0.34 * k)
+    const W = width * k, H = height * k
+    const left = Math.max(0, Math.min(W - cw, Math.round(W * fx - cw / 2)))
+    const top = Math.max(0, Math.min(H - ch, Math.round(H * fy - ch * 0.45)))
+    const zoom = 3 / k
+    await sharp(file).extract({ left, top, width: cw, height: ch }).resize(Math.round(cw * zoom), Math.round(ch * zoom), { kernel: 'lanczos3' }).toFile(join(out, `${name}-zoom.png`))
     const lamp3d = await page.evaluate((id) => document.querySelector(`[data-scene="${id}"]`)?.dataset.lamp ?? '2d', sceneId)
     report.shots.push({ viewport: vp, at, y, file, lamp: lamp3d })
     console.log(`${name}: y=${y} lamp=${lamp3d}`)

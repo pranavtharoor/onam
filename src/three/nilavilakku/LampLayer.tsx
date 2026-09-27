@@ -1,15 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ScrollTrigger } from '../../core/motion/gsap'
 import { FLAME_AT } from '../../scenes/05-nadumuttam/NadumuttamScene'
+import type { GLProfile } from '../core/capability'
 import { createStage, type Stage } from '../core/stage'
+import { glStats } from '../core/stats'
 import { createLampScene, type LampScene } from './lampScene'
 
-/**
- * The lamp's foot, as a fraction of the wall's height (the painted floor band is 86–100%).
- * Below 1 the whole lamp stands on the floor, as the painted one did (≈ 20% of the frame tall);
- * above 1 it stands nearer the lens and the frame crops it through the stem.
- */
-const FOOT_AT = 1.5
+declare global { interface Window { __lampMs?: number[] } }
+const timed = new URLSearchParams(location.search).has('lampms') // GPU-synced draw timer for scripts/perf/hold-3d.mjs
+const px = new Uint8Array(4)
 
 /**
  * The WebGL nilavilakku, mounted inside the nadumuttam's wall (so it rides the
@@ -17,17 +16,15 @@ const FOOT_AT = 1.5
  *
  * Driven by the scene's own pinned timeline: every frame it reads that timeline's
  * (scrubbed) progress, so the lamp's camera and lighting move exactly with the film.
- * The 2D lamp stays visible until the first 3D frame is drawn, and comes back if
- * WebGL fails or the context is lost.
+ * The painted lamp stays visible until the first 3D frame is drawn, and comes back
+ * whenever WebGL fails or the context is lost; a restored context rebuilds the layer.
  */
-declare global { interface Window { __lampMs?: number[] } }
-const qa = new URLSearchParams(location.search).has('lampms') // draw timer for scripts/perf/hold-3d.mjs
-const px = new Uint8Array(4)
+export default function LampLayer({ section, wall, profile }: { section: HTMLElement; wall: HTMLElement; profile: GLProfile }) {
+  const [generation, setGeneration] = useState(0)
 
-export default function LampLayer({ section, wall }: { section: HTMLElement; wall: HTMLElement }) {
   useEffect(() => {
-    // A fresh canvas per mount: a canvas whose WebGL context was released can't be reused
-    // (StrictMode mounts effects twice).
+    // A fresh canvas per mount: a canvas whose context was released can't be reused
+    // (StrictMode mounts effects twice; a restored context remounts).
     const el = document.createElement('canvas')
     el.className = 'nm-lamp3d'
     el.setAttribute('aria-hidden', 'true')
@@ -36,6 +33,14 @@ export default function LampLayer({ section, wall }: { section: HTMLElement; wal
     let lamp: LampScene | null = null
     let stage: Stage | null = null
     let shown = false
+    const fallBack = (reason: string) => {
+      delete section.dataset.lamp
+      shown = false
+      glStats.lamp = '2D'
+      glStats.reason = reason
+    }
+    glStats.profile = profile.name
+    glStats.msaa = profile.antialias
 
     const timeline = () => ScrollTrigger.getAll().find((st) => st.pin === section)?.animation
     const layout = (width: number, height: number) => {
@@ -47,20 +52,22 @@ export default function LampLayer({ section, wall }: { section: HTMLElement; wal
       lamp.layout({
         width, height,
         flame: { x: (w.left + FLAME_AT.x * w.width - c.left) / c.width, y: at(FLAME_AT.y) },
-        foot: at(FOOT_AT),
+        foot: at(profile.foot),
         floorLine: floor ? (floor.top - c.top) / c.height : at(0.86),
       })
     }
 
     try {
       stage = createStage(el, {
-        maxDpr: 1.5,
+        maxDpr: profile.maxDpr,
+        antialias: profile.antialias,
         onResize: layout,
+        onLost: () => fallBack('context lost'),
+        onRestored: () => setGeneration((g) => g + 1),
         frame: ({ time }) => (lamp ? lamp.update(timeline()?.progress() ?? 0, time) : false),
         render: () => {
           if (!lamp) return
-          if (qa) {
-            // QA: time the draw for scripts/perf/hold-3d.mjs (a 1-pixel read waits for the GPU).
+          if (timed) {
             const gl = stage!.renderer.getContext()
             const t0 = performance.now()
             lamp.render()
@@ -70,33 +77,34 @@ export default function LampLayer({ section, wall }: { section: HTMLElement; wal
           if (!shown) {
             shown = true
             section.dataset.lamp = '3d'
+            glStats.lamp = '3D'
+            glStats.reason = ''
           }
         },
       })
     } catch {
-      return // no WebGL: the painted lamp stays
+      fallBack('WebGL failed to start')
+      el.remove()
+      return
     }
-    const onLost = (e: Event) => { e.preventDefault(); delete section.dataset.lamp; shown = false }
-    el.addEventListener('webglcontextlost', onLost)
 
-    const url = new URL('../models/nilavilakku.glb', document.baseURI).href
+    const url = new URL(`../models/${profile.model}`, document.baseURI).href
     createLampScene(stage.renderer, url).then((l) => {
       if (disposed) { l.dispose(); return }
       lamp = l
       const r = el.getBoundingClientRect()
       layout(r.width, r.height)
       stage?.invalidate()
-    }).catch(() => { /* the painted lamp stays */ })
+    }).catch(() => fallBack('model failed to load'))
 
     return () => {
       disposed = true
-      el.removeEventListener('webglcontextlost', onLost)
-      delete section.dataset.lamp
+      fallBack('unmounted')
       lamp?.dispose()
       stage?.dispose()
       el.remove()
     }
-  }, [section, wall])
+  }, [section, wall, profile, generation])
 
   return null
 }

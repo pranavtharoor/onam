@@ -2,6 +2,7 @@ import { WebGLRenderer } from 'three'
 import { gsap } from '../../core/motion/gsap'
 import { ambient } from '../../core/motion/ambient'
 import { allowSoftwareGL } from './capability'
+import { glStats } from './stats'
 
 export interface StageFrame {
   /** Seconds on gsap's clock (frozen while QA stills are on). */
@@ -12,6 +13,11 @@ export interface StageFrame {
 export interface StageOptions {
   /** Device pixel ratio cap. The site's canvases stay at ≤ 1.5. */
   maxDpr?: number
+  antialias?: boolean
+  /** The GPU dropped the context (iOS does this under memory pressure or in the background). */
+  onLost?: () => void
+  /** The context is back: everything on the GPU is gone and must be rebuilt. */
+  onRestored?: () => void
   onResize: (width: number, height: number) => void
   /**
    * Called every ticker frame while the canvas is on screen. Update the scene and
@@ -39,13 +45,17 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     canvas,
     alpha: true,
     premultipliedAlpha: true,
-    antialias: true, // the rim and stem silhouettes alias badly without it; cheap on any real GPU
+    // MSAA on desktop: the rim and stem silhouettes alias badly without it. Phones pass false.
+    antialias: opts.antialias ?? true,
     powerPreference: 'high-performance',
+    // Default, stated because iOS pays for it: no preserved buffer, so the compositor can swap.
+    preserveDrawingBuffer: false,
     failIfMajorPerformanceCaveat: !allowSoftwareGL(),
   })
   renderer.setClearColor(0x000000, 0)
 
   let visible = false
+  let lost = false
   let dirty = true
   let last = 0
   let clock = 0
@@ -67,13 +77,16 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
   }
 
   const tick = (time: number) => {
-    if (!visible || document.hidden) { last = 0; return }
+    if (!visible || lost || document.hidden) { last = 0; return }
     const dt = last ? Math.min(time - last, 1 / 20) : 1 / 60
     last = time
     if (!ambient.paused) clock += dt
     const changed = opts.frame({ time: clock, dt: ambient.paused ? 0 : dt })
     if (changed || dirty) {
+      const t0 = performance.now()
       opts.render()
+      glStats.draw(performance.now() - t0)
+      glStats.dpr = renderer.getPixelRatio()
       dirty = false
       if (++drawn > 20 && dt > 1 / 30) slow++
       else if (dt < 1 / 45) slow = Math.max(0, slow - 1)
@@ -85,6 +98,13 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     }
   }
 
+  const onLost = (e: Event) => { e.preventDefault(); lost = true; opts.onLost?.() }
+  const onRestored = () => { lost = false; opts.onRestored?.() }
+  canvas.addEventListener('webglcontextlost', onLost)
+  canvas.addEventListener('webglcontextrestored', onRestored)
+
+  // Sized by the canvas's own box (laid out in svh, so it doesn't move when the phone's
+  // address bar shows or hides), never from innerHeight.
   const ro = new ResizeObserver(resize)
   ro.observe(canvas)
   const io = new IntersectionObserver(([entry]) => {
@@ -100,6 +120,8 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     invalidate: () => { dirty = true },
     dispose() {
       gsap.ticker.remove(tick)
+      canvas.removeEventListener('webglcontextlost', onLost)
+      canvas.removeEventListener('webglcontextrestored', onRestored)
       ro.disconnect()
       io.disconnect()
       renderer.dispose()

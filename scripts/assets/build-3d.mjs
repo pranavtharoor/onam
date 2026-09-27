@@ -51,21 +51,24 @@ for (const file of scripts) {
     for (const line of log.split('\n')) if (/^(EXPORTED|RENDERED)/.test(line)) console.log('  ' + line)
   }
 
-  const doc = await io.read(raw)
-  await doc.transform(
-    weld(),
-    dedup(),
-    prune({ keepLeaves: true, keepAttributes: false }),
-    reorder({ encoder: MeshoptEncoder, level: 'medium' }),
-    // Data textures (occlusion/roughness/metalness) at half size: their detail is sub-pixel on screen.
-    textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^(occlusion|metallicRoughness)/, resize: [512, 512], quality: 90 }),
-    textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^(?!baseColor|occlusion|metallicRoughness).*/, quality: 90 }),
-    textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^baseColor/, quality: 86 }),
-    meshopt({ encoder: MeshoptEncoder, level: 'high' }),
-  )
-  const out = join(OUT, `${name}.glb`)
-  await io.write(out, doc)
+  // Two texture sets from one mesh: desktop (1024² colour) and phones (<name>-mobile.glb, 512² colour, 256² data).
   const kb = (b) => `${(b / 1024).toFixed(1)} KB`
-  console.log(`${name}: ${kb((await stat(raw)).size)} → ${out} ${kb((await stat(out)).size)}`)
-  for (const t of doc.getRoot().listTextures()) console.log(`  texture ${t.getName() || t.getURI()} ${t.getMimeType()} ${t.getSize()?.join('×')} ${kb(t.getImage().byteLength)}`)
+  for (const [suffix, colour, data] of [['', null, 512], ['-mobile', 512, 256]]) {
+    const doc = await io.read(raw)
+    await doc.transform(
+      weld(),
+      dedup(),
+      prune({ keepLeaves: true, keepAttributes: false }),
+      reorder({ encoder: MeshoptEncoder, level: 'medium' }),
+      // Data textures (occlusion/roughness/metalness) smaller than colour: their detail is sub-pixel on screen.
+      textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^(occlusion|metallicRoughness)/, resize: [data, data], quality: 90 }),
+      textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^(?!baseColor|occlusion|metallicRoughness).*/, quality: 90 }),
+      textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^baseColor/, quality: 86, ...(colour ? { resize: [colour, colour] } : {}) }),
+      meshopt({ encoder: MeshoptEncoder, level: 'high' }),
+    )
+    const out = join(OUT, `${name}${suffix}.glb`)
+    await io.write(out, doc)
+    console.log(`${name}${suffix}: ${kb((await stat(raw)).size)} → ${out} ${kb((await stat(out)).size)}`)
+    for (const t of doc.getRoot().listTextures()) console.log(`  texture ${t.getName() || t.getURI()} ${t.getMimeType()} ${t.getSize()?.join('×')} ${kb(t.getImage().byteLength)}`)
+  }
 }
