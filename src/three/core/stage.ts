@@ -39,7 +39,7 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     canvas,
     alpha: true,
     premultipliedAlpha: true,
-    antialias: false,
+    antialias: true, // the rim and stem silhouettes alias badly without it; cheap on any real GPU
     powerPreference: 'high-performance',
     failIfMajorPerformanceCaveat: !allowSoftwareGL(),
   })
@@ -49,11 +49,18 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
   let dirty = true
   let last = 0
   let clock = 0
+  // Adaptive resolution: if drawn frames keep running slow (a weak integrated GPU), step the
+  // pixel ratio down once, ×0.75. Never back up: no oscillation mid-scene. Off in QA runs
+  // (software GL is always slow; captures must show the real quality).
+  const adaptive = !allowSoftwareGL()
+  let scale = 1
+  let slow = 0
+  let drawn = 0
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect()
     if (!rect.width || !rect.height) return
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, opts.maxDpr ?? 1.5))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, opts.maxDpr ?? 1.5) * scale)
     renderer.setSize(rect.width, rect.height, false)
     opts.onResize(rect.width, rect.height)
     dirty = true
@@ -68,6 +75,13 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     if (changed || dirty) {
       opts.render()
       dirty = false
+      if (++drawn > 20 && dt > 1 / 30) slow++
+      else if (dt < 1 / 45) slow = Math.max(0, slow - 1)
+      if (adaptive && slow > 24 && scale === 1) {
+        scale *= 0.75
+        slow = 0
+        resize()
+      }
     }
   }
 

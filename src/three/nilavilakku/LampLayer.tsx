@@ -21,7 +21,7 @@ const FOOT_AT = 1.5
  * WebGL fails or the context is lost.
  */
 declare global { interface Window { __lampMs?: number[] } }
-const qa = new URLSearchParams(location.search).has('qa')
+const qa = new URLSearchParams(location.search).has('lampms') // draw timer for scripts/perf/hold-3d.mjs
 const px = new Uint8Array(4)
 
 export default function LampLayer({ section, wall }: { section: HTMLElement; wall: HTMLElement }) {

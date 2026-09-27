@@ -12,7 +12,7 @@ const scene = args.scene ?? 'nadumuttam'
 const at = Number(args.at ?? 0.6)
 const seconds = Number(args.seconds ?? 4)
 const browser = await launch({ webgl: true })
-for (const [label, url] of [['2D', base], ['3D', new URL('3d/', base).href]]) {
+for (const [label, url] of [['2D', base], ['3D', new URL('3d/?lampms', base).href]]) {
   for (const vp of String(args.viewports ?? 'desktop,laptop').split(',')) {
     const { context, page } = await openSite(browser, url, vp)
     const { scenes } = await getScenes(page)

@@ -1,5 +1,5 @@
 import {
-  NeutralToneMapping, Color, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, MeshStandardMaterial,
+  NeutralToneMapping, Color, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial,
   Object3D, PerspectiveCamera, PlaneGeometry, PointLight, Scene, Vector3, type Texture, type WebGLRenderer,
 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -77,9 +77,10 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
     const m = o.material as MeshStandardMaterial
     if (o.name === 'Nilavilakku') {
       // Turned brass: the lathe leaves fine rings, so highlights stretch around the lamp (anisotropy along u).
-      const brass = new MeshStandardMaterial({
+      const brass = new MeshPhysicalMaterial({
         map: m.map, aoMap: m.aoMap, roughnessMap: m.roughnessMap, metalnessMap: m.metalnessMap,
         metalness: 1, roughness: 1, aoMapIntensity: 1, envMapIntensity: 1.0,
+        anisotropy: 0.3, anisotropyRotation: 0,
       })
       m.dispose()
       o.material = brass
