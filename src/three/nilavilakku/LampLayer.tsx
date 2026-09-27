@@ -20,6 +20,10 @@ const FOOT_AT = 1.5
  * The 2D lamp stays visible until the first 3D frame is drawn, and comes back if
  * WebGL fails or the context is lost.
  */
+declare global { interface Window { __lampMs?: number[] } }
+const qa = new URLSearchParams(location.search).has('qa')
+const px = new Uint8Array(4)
+
 export default function LampLayer({ section, wall }: { section: HTMLElement; wall: HTMLElement }) {
   useEffect(() => {
     // A fresh canvas per mount: a canvas whose WebGL context was released can't be reused
@@ -55,7 +59,14 @@ export default function LampLayer({ section, wall }: { section: HTMLElement; wal
         frame: ({ time }) => (lamp ? lamp.update(timeline()?.progress() ?? 0, time) : false),
         render: () => {
           if (!lamp) return
-          lamp.render()
+          if (qa) {
+            // QA: time the draw for scripts/perf/hold-3d.mjs (a 1-pixel read waits for the GPU).
+            const gl = stage!.renderer.getContext()
+            const t0 = performance.now()
+            lamp.render()
+            gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px)
+            ;(window.__lampMs ??= []).push(performance.now() - t0)
+          } else lamp.render()
           if (!shown) {
             shown = true
             section.dataset.lamp = '3d'

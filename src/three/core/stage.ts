@@ -39,7 +39,7 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
     canvas,
     alpha: true,
     premultipliedAlpha: true,
-    antialias: true,
+    antialias: false,
     powerPreference: 'high-performance',
     failIfMajorPerformanceCaveat: !allowSoftwareGL(),
   })

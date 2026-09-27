@@ -21,8 +21,13 @@ export function parseArgs(argv = process.argv.slice(2)) {
   return out
 }
 
-/** Software WebGL (SwiftShader) for the 3D page. Only passed when a script tests /3d/. */
-export const WEBGL_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader']
+/**
+ * WebGL for the 3D page (QA scripts pass it with --page). Headless Chromium here has no GPU
+ * and already falls back to SwiftShader for WebGL; this flag opts in explicitly (silencing the
+ * deprecation warning). Don't add --use-angle=swiftshader: it also moves the page compositor
+ * onto software GL, which slows every page ~8× and makes frame times meaningless.
+ */
+export const WEBGL_ARGS = ['--enable-unsafe-swiftshader']
 
 export async function launch({ webgl = false } = {}) {
   // Headless Chromium with GPU rasterisation off is what we have in CI/cloud;

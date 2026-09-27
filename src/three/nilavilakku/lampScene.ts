@@ -1,5 +1,5 @@
 import {
-  NeutralToneMapping, Color, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial,
+  NeutralToneMapping, Color, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, MeshStandardMaterial,
   Object3D, PerspectiveCamera, PlaneGeometry, PointLight, Scene, Vector3, type Texture, type WebGLRenderer,
 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -77,10 +77,9 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
     const m = o.material as MeshStandardMaterial
     if (o.name === 'Nilavilakku') {
       // Turned brass: the lathe leaves fine rings, so highlights stretch around the lamp (anisotropy along u).
-      const brass = new MeshPhysicalMaterial({
+      const brass = new MeshStandardMaterial({
         map: m.map, aoMap: m.aoMap, roughnessMap: m.roughnessMap, metalnessMap: m.metalnessMap,
         metalness: 1, roughness: 1, aoMapIntensity: 1, envMapIntensity: 1.0,
-        anisotropy: 0.3, anisotropyRotation: 0,
       })
       m.dispose()
       o.material = brass
@@ -122,12 +121,13 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
     disposables.push(mat)
     return mesh
   })
-  const lights = flameMeshes.map((f) => {
-    const l = new PointLight(LIGHT.color, 0, 0, 2)
-    l.position.copy(f.position).add(new Vector3(0, 0.012, 0))
-    scene.add(l)
-    return l
-  })
+  // One light for the brass, not five: per-pixel lights are the lamp's main cost on weak GPUs,
+  // and at this size five glints read as one. It sits at the front flame (the one facing the
+  // guest), so the spire and dish catch the light where the eye expects it; the floor and wall
+  // light (lightCatcher) still sums all five flames.
+  const light = new PointLight(LIGHT.color, 0, 0, 2)
+  if (flameMeshes[0]) light.position.copy(flameMeshes[0].position).add(new Vector3(0, 0.012, 0))
+  scene.add(light)
   const halo = new Mesh(new PlaneGeometry(1, 1), haloMaterial())
   halo.position.set(0, FLAME_Y + 0.004, 0)
   halo.scale.setScalar(0.24)
@@ -136,13 +136,14 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
   disposables.push(halo.geometry, halo.material)
 
   const floorMat = lightCatcherMaterial({ albedo: '#6e2419', normal: new Vector3(0, 1, 0), dish: DISH })
-  const floor = new Mesh(new PlaneGeometry(2.4, 2.4), floorMat)
+  // Quads only as large as the light's fade radius (uFadeR): pixels outside them cost nothing.
+  const floor = new Mesh(new PlaneGeometry(1.5, 1.5), floorMat)
   floor.rotation.x = -Math.PI / 2
   floor.position.y = 0.0005
   floor.renderOrder = 2
   scene.add(floor)
   const wallMat = lightCatcherMaterial({ albedo: '#d9cdb0', normal: new Vector3(0, 0, 1) })
-  const wall = new Mesh(new PlaneGeometry(3, 1.6), wallMat)
+  const wall = new Mesh(new PlaneGeometry(0.86, 0.86), wallMat)
   wall.renderOrder = 2
   scene.add(wall)
   disposables.push(floor.geometry, floorMat, wall.geometry, wallMat)
@@ -205,7 +206,7 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
         if (screenY(new Vector3(0, 0, -mid)) > l.floorLine) lo = mid; else hi = mid
       }
       const wallZ = -(lo + hi) / 2
-      wall.position.set(0, 0.8, wallZ)
+      wall.position.set(0, FLAME_Y, wallZ)
       floorMat.uniforms.uClipZ!.value = wallZ
       wallMat.uniforms.uFadeAt!.value.set(0, FLAME_Y, wallZ)
       lastKey = ''
@@ -217,6 +218,7 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
       place(MathUtils.lerp(CRANE.elev[0], CRANE.elev[1], c), MathUtils.lerp(CRANE.yaw[0], CRANE.yaw[1], c))
       project()
       let litSum = 0
+      let glow = 0
       flameMeshes.forEach((f, i) => {
         const lit = smooth(LIGHTING.start + i * LIGHTING.step, LIGHTING.start + i * LIGHTING.step + LIGHTING.each, progress)
         litSum += lit
@@ -227,10 +229,11 @@ export async function createLampScene(renderer: WebGLRenderer, url: string): Pro
         // Cylindrical billboard: flames stay upright and turn to the camera.
         f.rotation.y = Math.atan2(camera.position.x - f.position.x, camera.position.z - f.position.z)
         const flicker = 0.9 + 0.06 * Math.sin(time * 6.1 + i * 7) + 0.04 * Math.sin(time * 13.7 + i)
-        lights[i]!.intensity = LIGHT.candela * lit * flicker
+        glow += lit * flicker
         floorMat.uniforms.uLit!.value[i] = lit * flicker
         wallMat.uniforms.uLit!.value[i] = lit * flicker
       })
+      light.intensity = LIGHT.candela * glow
       const hu = (halo.material as ReturnType<typeof haloMaterial>).uniforms
       hu.uGain!.value = (0.55 * litSum) / MAX_FLAMES
       hu.uTime!.value = time
