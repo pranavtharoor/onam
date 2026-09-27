@@ -7,3 +7,6 @@ qa-artifacts/
 # raw source media before optimisation
 media-src/
 .vite/
+
+# Isolated agent worktrees (e.g. the 3D builder); each has its own branch
+.claude/worktrees/
