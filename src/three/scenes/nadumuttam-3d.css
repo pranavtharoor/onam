@@ -3,6 +3,8 @@
   position: absolute; left: 50%; top: 50%; width: min(100%, 110svh); height: 50%; translate: -50% 0;
   pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
 }
-/* Swap the painted lamp for the 3D one only once the 3D one has drawn. */
+/* Swap the painted lamp for the 3D one only once the 3D one has drawn. Normally that happens
+   off screen; if the model arrives while the lamp is in view, the two cross-fade. */
+.s-nadumuttam .nm-lamp { transition: opacity 0.4s ease; }
 [data-lamp='3d'] .nm-lamp3d { opacity: 1; }
-[data-lamp='3d'] .nm-lamp { visibility: hidden; }
+[data-lamp='3d'] .nm-lamp { opacity: 0; }

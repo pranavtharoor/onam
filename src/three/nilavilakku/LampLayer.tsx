@@ -94,7 +94,8 @@ export default function LampLayer({ section, wall, profile }: { section: HTMLEle
       lamp = l
       const r = el.getBoundingClientRect()
       layout(r.width, r.height)
-      stage?.invalidate()
+      // First frame now, off screen: the swap from the painted lamp happens before the wall arrives.
+      stage?.renderNow()
     }).catch(() => fallBack('model failed to load'))
 
     return () => {

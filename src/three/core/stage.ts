@@ -31,6 +31,8 @@ export interface Stage {
   renderer: WebGLRenderer
   /** Ask for a draw on the next frame (e.g. after a resize or an asset arrives). */
   invalidate: () => void
+  /** Draw one frame now, even off screen (so a layer is ready before it scrolls into view). */
+  renderNow: () => void
   dispose: () => void
 }
 
@@ -118,6 +120,11 @@ export function createStage(canvas: HTMLCanvasElement, opts: StageOptions): Stag
   return {
     renderer,
     invalidate: () => { dirty = true },
+    renderNow: () => {
+      if (lost) return
+      opts.frame({ time: clock, dt: 0 })
+      opts.render()
+    },
     dispose() {
       gsap.ticker.remove(tick)
       canvas.removeEventListener('webglcontextlost', onLost)
