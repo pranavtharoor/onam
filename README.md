@@ -18,6 +18,7 @@ npm run build      # → dist/
 Everything a guest reads is in **`src/content.ts`**: event facts, every line of
 copy, the ten day names, and the Sadhya dishes with their serving order.
 
+- **The day:** `event.schedule` is the programme on the invitation card and in the calendar file; `event.startIST`/`endIST` set the calendar times.
 - **RSVP:** set `event.rsvpUrl` to the Google Form link. Until then RSVP opens the site in a new tab.
 - **Malayalam:** every Malayalam string is in an `ml` field. The current strings
   are proofread (`MALAYALAM_VERIFIED = true`); if you add or change one, set it to

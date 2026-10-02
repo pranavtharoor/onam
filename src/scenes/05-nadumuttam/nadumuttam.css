@@ -30,6 +30,8 @@
 .nm-sign-lead { font-size: var(--step-1); color: var(--c-lime); }
 .nm-sign-title { font-size: var(--step-4); line-height: 1; margin: 0.08em 0 0.12em; }
 .nm-sign-when { font-size: var(--step-2); }
+.nm-nowrap { white-space: nowrap; display: inline-block; }
+.nm-sign-time { font-size: var(--step-1); color: var(--c-lime); margin-top: 0.2em; }
 .nm-sign-where { font-size: var(--step-0); font-family: var(--font-text); color: var(--c-lime); margin-top: 0.4em; text-shadow: none; }
 .nm-sheen {
   position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
@@ -43,7 +45,8 @@
 .nm-lamp { position: absolute; left: 50%; top: 80svh; height: 22svh; width: auto; transform: translate(-50%, -21%); overflow: visible; }
 
 @media (max-width: 899.98px) {
-  .nm-beam { top: 16svh; padding-block: 3svh; }
+  /* Keep the painted words between the pillars (3vw + their width), which stand in front of the beam. */
+  .nm-beam { top: 16svh; padding-block: 3svh; padding-inline: calc(3vw + clamp(28px, 4vw, 64px) + 10px); }
   .nm-sign-title { font-size: var(--step-3); }
   .nm-pillar--l { left: 3vw; } .nm-pillar--r { right: 3vw; }
 }

@@ -172,8 +172,9 @@ export function NadumuttamScene(props: SceneProps) {
               <div className="nm-sign" role="group" aria-label="Invitation">
                 <p className="nm-sign-lead">{copy.nadumuttam.beamLead}</p>
                 <p className="nm-sign-title">{event.title}</p>
-                <p className="nm-sign-when">{event.dayLabel}, {event.timeLabel}</p>
-                <p className="nm-sign-where">{event.venue}, {event.addressLines.join(', ')}</p>
+                <p className="nm-sign-when">{event.dayLabel}</p>
+                <p className="nm-sign-time"><span className="nm-nowrap">{event.timeLabel},</span> <span className="nm-nowrap">{event.sadhyaLabel}</span></p>
+                <p className="nm-sign-where"><span className="nm-nowrap">{event.venue},</span> {event.area}</p>
               </div>
               <div className="nm-sheen" aria-hidden="true" />
             </div>

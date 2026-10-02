@@ -10,15 +10,31 @@ export const MALAYALAM_VERIFIED = true
 export const event = {
   title: 'Onam Sadhya',
   dayLabel: 'Saturday, 10 October',
-  timeLabel: '11 am',
+  year: '2026',
+  /** A whole day of celebrations; the Sadhya is its heart. */
+  timeLabel: 'from 6:30 am',
+  sadhyaLabel: 'Sadhya at 12:15 pm',
   /** ISO start/end in IST, used for the calendar file. */
-  startIST: '2026-10-10T11:00:00+05:30',
+  startIST: '2026-10-10T06:30:00+05:30',
   endIST: '2026-10-10T15:00:00+05:30',
   venue: 'Clubhouse, Confident Bellatrix',
   /** The residential community the guests live in (the hero addresses them by it). */
   community: 'Confident Bellatrix',
-  addressLines: ['Billapura Cross, Sarjapura', 'Bangalore'],
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Confident Bellatrix, Billapura Cross, Sarjapura, Bangalore'),
+  /** Full address (card, calendar). The last line is a landmark. */
+  addressLines: ['Sarjapura–Attibele Road, Billapura', 'Anekal Taluk, Bangalore 562125', 'Near Indus International School'],
+  /** Short form for the painted beam, so it fits on phones. */
+  area: 'Billapura, Bangalore',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Confident Bellatrix, Sarjapura–Attibele Road, Billapura, Anekal Taluk, Bangalore 562125'),
+  /** The day's programme, from the hosts. `feast` marks the Sadhya. */
+  schedule: [
+    { time: '6:30 am', name: 'Pookalam', note: 'laying the floral carpet' },
+    { time: '9:30 am', name: 'Welcoming Mahabali' },
+    { time: '10:30 am', name: 'Thiruvathirakkali', note: 'traditional dance' },
+    { time: '10:45 am', name: 'Cultural programmes and Onam games' },
+    { time: '11:30 am', name: 'Chenda Melam', note: 'traditional percussion' },
+    { time: '12:00 pm', name: 'Arts & Science Exhibition' },
+    { time: '12:15 pm', name: 'Onasadhya', note: 'the grand Onam feast', feast: true },
+  ] as { time: string; name: string; note?: string; feast?: boolean }[],
   food: 'A traditional Onam Sadhya, served on banana leaf. Vegetarian.',
   dress: 'Traditional Kerala attire: kasavu mundu, set-saree, or whatever makes you feel festive.',
   /** Google Form link goes here. Until then RSVP opens this site in a new tab. */
@@ -79,7 +95,9 @@ export const copy = {
   yourLeaf: {
     line: 'And this one is yours.',
     foldNote: 'In Kerala, you fold your leaf towards you when you’ve eaten well. We’re counting on it.',
-    cardKicker: 'You’re invited to an',
+    cardKicker: 'A day of Onam at Confident Bellatrix, ending in an',
+    programme: 'The day',
+    comeNote: 'Come whenever you can, but don’t miss the Sadhya. Let us know you’re coming so we can count you in for lunch.',
     rsvp: 'RSVP',
     maps: 'Open in Maps',
     calendar: 'Add to calendar',
@@ -87,7 +105,7 @@ export const copy = {
   },
   details: {
     label: 'Invitation details',
-    date: 'Sat, 10 October · 11 am',
+    date: 'Sat 10 Oct, from 6:30 am',
   },
 }
 

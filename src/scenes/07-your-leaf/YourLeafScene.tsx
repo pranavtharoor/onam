@@ -83,11 +83,23 @@ export function YourLeafScene(props: SceneProps) {
           <p className="yl-card-kicker">{copy.yourLeaf.cardKicker}</p>
           <h2 id="yl-card-title" className="display yl-card-title" tabIndex={-1}>{event.title}</h2>
           <dl className="yl-facts">
-            <div><dt>When</dt><dd>{event.dayLabel}, {event.timeLabel}</dd></div>
-            <div><dt>Where</dt><dd>{event.venue}<br />{event.addressLines.join(', ')}</dd></div>
+            <div><dt>When</dt><dd>{event.dayLabel} {event.year}, {event.timeLabel}. {event.sadhyaLabel}.</dd></div>
+            <div><dt>Where</dt><dd>{event.venue}<br />{event.addressLines.map((l, i) => <span key={l} className={i === event.addressLines.length - 1 ? 'yl-landmark' : undefined}>{l}<br /></span>)}</dd></div>
             <div><dt>Food</dt><dd>{event.food}</dd></div>
             <div><dt>Dress</dt><dd>{event.dress}</dd></div>
           </dl>
+          <section className="yl-day" aria-labelledby="yl-day-title">
+            <h3 id="yl-day-title" className="yl-day-title">{copy.yourLeaf.programme}</h3>
+            <ol className="yl-programme">
+              {event.schedule.map((s) => (
+                <li key={s.time} className={s.feast ? 'is-feast' : undefined}>
+                  <span className="yl-time display">{s.time}</span>
+                  <span className="yl-item">{s.name}{s.note && <span className="yl-item-note">{s.note}</span>}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+          <p className="yl-come">{copy.yourLeaf.comeNote}</p>
           <div className="yl-actions">
             <a className="yl-rsvp" href={rsvpHref()} target="_blank" rel="noopener">{copy.yourLeaf.rsvp}</a>
             <a className="yl-link" href={event.mapsUrl} target="_blank" rel="noopener">{copy.yourLeaf.maps}</a>

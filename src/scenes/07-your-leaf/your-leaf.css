@@ -39,6 +39,28 @@
 .yl-facts div { display: grid; gap: 0.1rem; border-top: 1px solid rgb(23 19 15 / 0.15); padding-top: 0.6rem; }
 .yl-facts dt { font-family: var(--font-display); color: var(--c-red-ochre); }
 .yl-facts dd { margin: 0; }
+/* The day's programme: a time column in the display face, a hairline of zari under each
+   line, and the Sadhya set apart on a kasavu-edged band, the way it closes the day. */
+.yl-day { display: grid; gap: 0.5rem; }
+.yl-day-title { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); color: var(--c-red-ochre); margin: 0.3rem 0 0; }
+.yl-programme { list-style: none; margin: 0; padding: 0; display: grid; }
+.yl-programme li {
+  display: grid; grid-template-columns: 6rem 1fr; gap: 0.2rem 1rem; align-items: baseline;
+  padding: 0.45rem 0; border-bottom: 1px solid rgb(201 162 58 / 0.55);
+}
+.yl-time { font-size: var(--step-0); color: var(--c-red-ochre); white-space: nowrap; }
+.yl-item { display: grid; }
+.yl-item-note { font-size: var(--step--1); color: rgb(23 19 15 / 0.65); }
+.yl-programme li.is-feast {
+  margin-top: 0.35rem; padding: 0.7rem 0.8rem; margin-inline: -0.8rem; border: 0;
+  background: rgb(201 162 58 / 0.16); border-top: 3px solid var(--c-kasavu); border-bottom: 1px solid var(--c-kasavu);
+}
+/* Same time column as the rows above; only the name grows. */
+.is-feast .yl-time { color: var(--c-black); }
+.is-feast .yl-item { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.1; color: var(--c-black); }
+.is-feast .yl-item-note { font-family: var(--font-text); }
+.yl-landmark { color: rgb(23 19 15 / 0.65); }
+.yl-come { font-size: var(--step-0); color: var(--c-verdigris); max-width: 40ch; margin: 0.2rem 0 0; }
 .yl-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem; margin-top: 0.5rem; }
 .yl-rsvp {
   display: inline-grid; place-items: center; min-height: 48px; padding: 0 2rem;
@@ -58,6 +80,7 @@
   .yl-line { font-size: var(--step-2); }
   .yl-leaf { width: 94vw; }
   .yl-facts { grid-template-columns: 1fr; }
+  .yl-programme li { grid-template-columns: 4.9rem 1fr; gap: 0.2rem 0.7rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .yl-far { transform: rotateX(-178deg); }
